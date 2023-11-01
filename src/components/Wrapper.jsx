@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 
 function Wrapper({ children }) {
   return (
-    <div className='flex flex-col gap-4 w-full max-h-full md:w-2/3 border rounded-lg bg-white dark:bg-zinc-800 text-zinc-800 dark:text-white text-sm p-4'>
+    <div className='flex flex-col gap-2 w-full max-h-full md:w-1/3 border rounded-lg bg-white dark:bg-zinc-800 text-zinc-800 dark:text-white text-sm p-2'>
       {children}
     </div>
   )

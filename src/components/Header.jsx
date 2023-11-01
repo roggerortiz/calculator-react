@@ -1,5 +1,6 @@
-import { MoonIcon, SunIcon } from '@heroicons/react/20/solid'
-import { setDocumentTheme } from '../helpers/utils'
+import { faCalculator, faMoon, faSun } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { setDocumentTheme } from '../helpers/theme'
 import { useCalculator } from '../hooks/useCalculator'
 
 function Header() {
@@ -14,14 +15,17 @@ function Header() {
   }
 
   return (
-    <div className='-mx-4 -mt-4 p-4 border-b flex justify-between'>
-      <h1 className='text-base font-semibold'>Calculator</h1>
+    <div className='-mx-2 -mt-2 p-2 border-b flex justify-between'>
+      <h1 className='text-sm font-semibold flex gap-2 items-center'>
+        <FontAwesomeIcon icon={faCalculator} />
+        Calculator
+      </h1>
 
       <button
-        className='h-6 w-6 transition duration-200'
+        className='h-4 w-4 px-2 transition duration-200 flex justify-center items-center'
         onClick={handleToggleDark}
       >
-        {theme === 'dark' ? <MoonIcon /> : <SunIcon />}
+        <FontAwesomeIcon icon={theme === 'dark' ? faMoon : faSun} />
       </button>
     </div>
   )

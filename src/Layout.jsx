@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
-import { isDocumentDarkTheme, setDocumentTheme } from './helpers/utils'
+import { isDocumentDarkTheme, setDocumentTheme } from './helpers/theme'
 import { useCalculator } from './hooks/useCalculator'
 
 function Layout({ children }) {
@@ -13,7 +13,7 @@ function Layout({ children }) {
   }, [])
 
   return (
-    <main className='flex h-full w-full p-2 justify-center items-center bg-zinc-100 dark:bg-zinc-900'>
+    <main className='flex w-full h-full p-2 justify-center items-center bg-zinc-100 dark:bg-zinc-900 overflow-auto light-scrollbars'>
       {children}
     </main>
   )

@@ -1,11 +1,14 @@
+import Display from './Display'
 import Header from './Header'
+import Keyboard from './Keyboard'
 import Wrapper from './Wrapper'
 
 function Calculator() {
   return (
     <Wrapper>
       <Header />
-      <div>Calculator</div>
+      <Display />
+      <Keyboard />
     </Wrapper>
   )
 }
