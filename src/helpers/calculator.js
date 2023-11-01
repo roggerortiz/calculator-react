@@ -14,8 +14,8 @@ const calculateFirstOperation = (elements) => {
 
     const operator = elements[index - 1]
 
-    if (result === null || (number === 0 && operator === '÷')) {
-      return null
+    if (result === undefined || (number === 0 && operator === '÷')) {
+      return undefined
     }
 
     return operator === 'x' ? result * number : result / number
@@ -34,8 +34,8 @@ const calculateSecondOperation = (elements) => {
       return number
     }
 
-    if (result === null) {
-      return null
+    if (result === undefined) {
+      return undefined
     }
 
     const operator = elements[index - 1]
@@ -99,7 +99,7 @@ const setFirsOperationResults = (elements) => {
       const operation = operations.find((item) => item.minIndex === index)
 
       if (operation) {
-        return operation.result.toString()
+        return operation.result?.toString()
       }
 
       return element
@@ -112,6 +112,22 @@ const setFirsOperationResults = (elements) => {
 }
 
 export const calculate = (elements) => {
+  const hasFirsOperators = elements.some((element) => {
+    return isFirstOperator(element)
+  })
+
+  const hasSecondOperators = elements.some((element) => {
+    return isSecondOperator(element)
+  })
+
+  if (hasFirsOperators && !hasSecondOperators) {
+    return calculateFirstOperation(elements)
+  }
+
+  if (!hasFirsOperators && hasSecondOperators) {
+    return calculateSecondOperation(elements)
+  }
+
   const newElements = setFirsOperationResults(elements)
   return calculateSecondOperation(newElements)
 }

@@ -22,6 +22,10 @@ function Touchpad() {
   } = useCalculator()
 
   const percent = () => {
+    if (hasResult && !lastElement) {
+      return
+    }
+
     const lastNumber = Number(lastElement)
     const newLastElement = lastNumber ? Number(lastElement) / 100 : 0
     updateLastElement(newLastElement)
@@ -37,7 +41,11 @@ function Touchpad() {
   }
 
   const backspace = () => {
-    if (!elements.length || (elements.length === 1 && lastElement === '0')) {
+    if (
+      !elements.length ||
+      (hasResult && !lastElement) ||
+      (elements.length === 1 && lastElement === '0')
+    ) {
       return
     }
 
@@ -58,7 +66,6 @@ function Touchpad() {
 
   const addNumber = (number) => {
     if (hasResult) {
-      setOperation('')
       setHasResult(false)
       setElements([number])
       return
@@ -81,6 +88,10 @@ function Touchpad() {
   }
 
   const addOperator = (operator) => {
+    if (hasResult && !lastElement) {
+      return
+    }
+
     if (isOperator(lastElement)) {
       updateLastElement(operator)
     } else {
@@ -89,6 +100,10 @@ function Touchpad() {
   }
 
   const addDecimal = () => {
+    if (hasResult && !lastElement) {
+      return
+    }
+
     if (isOperator(lastElement)) {
       addElement('0.')
       return
@@ -104,6 +119,7 @@ function Touchpad() {
   const toggleNegative = () => {
     if (
       isOperator(lastElement) ||
+      (hasResult && !lastElement) ||
       (elements.length === 1 && lastElement === '0')
     ) {
       return
@@ -116,8 +132,12 @@ function Touchpad() {
   }
 
   const equals = () => {
-    const operation = `${elements.join(' ')} =`
+    if (hasResult) {
+      return
+    }
+
     const result = calculate(elements)
+    const operation = [elements.join(' '), result ?? ''].join(' = ')
 
     setOperation(operation)
     setElements([result])
