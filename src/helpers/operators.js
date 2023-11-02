@@ -1,11 +1,16 @@
-const operators = ['+', '-', 'x', '÷']
+import { operatorsEnum } from './enums'
 
-const firstOperators = ['x', '÷']
-
-const secondOperators = ['+', '-']
+const allOperators = [
+  operatorsEnum.plus,
+  operatorsEnum.minus,
+  operatorsEnum.times,
+  operatorsEnum.divideBy
+]
+const firstOperators = [operatorsEnum.times, operatorsEnum.divideBy]
+const secondOperators = [operatorsEnum.plus, operatorsEnum.minus]
 
 export const isOperator = (value) => {
-  return operators.includes(value)
+  return allOperators.includes(value)
 }
 
 export const isFirstOperator = (value) => {

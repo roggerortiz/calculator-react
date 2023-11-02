@@ -1,11 +1,11 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import clsx from 'clsx'
 import { buttons } from '../helpers/buttons'
 import { calculate } from '../helpers/calculator'
+import { actionsEnums, cleanLabelsEnums, operatorsEnum } from '../helpers/enums'
 import { isOperator } from '../helpers/operators'
 import { useCalculator } from '../hooks/useCalculator'
+import Button from './Button'
 
-function Touchpad() {
+function Keyboard() {
   const {
     cleanLabel,
     hasResult,
@@ -21,6 +21,15 @@ function Touchpad() {
     removeLastElement
   } = useCalculator()
 
+  const clean = () => {
+    if (cleanLabel === cleanLabelsEnums.c) {
+      resetCleanLabel()
+      resetElements()
+    } else if (cleanLabel === cleanLabelsEnums.ac) {
+      setOperation('')
+    }
+  }
+
   const percent = () => {
     if (hasResult && !lastElement) {
       return
@@ -29,15 +38,6 @@ function Touchpad() {
     const lastNumber = Number(lastElement)
     const newLastElement = lastNumber ? Number(lastElement) / 100 : 0
     updateLastElement(newLastElement)
-  }
-
-  const clean = () => {
-    if (cleanLabel === 'c') {
-      resetCleanLabel()
-      resetElements()
-    } else if (cleanLabel === 'ac') {
-      setOperation('')
-    }
   }
 
   const backspace = () => {
@@ -81,6 +81,10 @@ function Touchpad() {
       return
     }
 
+    if (elements.length === 1 && lastElement === '0' && number === '0') {
+      return
+    }
+
     const canConcat = lastElement !== '0'
     const newLastElement = canConcat ? `${lastElement}${number}` : number
 
@@ -99,7 +103,7 @@ function Touchpad() {
     }
   }
 
-  const addDecimal = () => {
+  const addDecimalPoint = () => {
     if (hasResult && !lastElement) {
       return
     }
@@ -125,19 +129,26 @@ function Touchpad() {
       return
     }
 
-    const isNegative = lastElement.startsWith('-')
-    const newLastElement = isNegative ? lastElement.slice(1) : `-${lastElement}`
+    const isNegative = lastElement.startsWith(operatorsEnum.minus)
+
+    const newLastElement = isNegative
+      ? lastElement.slice(1)
+      : `${operatorsEnum.minus}${lastElement}`
 
     updateLastElement(newLastElement)
   }
 
-  const equals = () => {
-    if (hasResult) {
+  const calculateResult = () => {
+    if (
+      hasResult ||
+      !elements.length ||
+      (elements.length === 1 && elements[0] === '0')
+    ) {
       return
     }
 
     const result = calculate(elements)
-    const operation = [elements.join(' '), result ?? ''].join(' = ')
+    const operation = [elements.join(' '), result ?? ''].join(' = ').trim()
 
     setOperation(operation)
     setElements([result])
@@ -151,51 +162,40 @@ function Touchpad() {
       return
     }
 
-    const actions = {
+    const actionsFn = {
       percent,
       clean,
       backspace,
       addNumber,
       addOperator,
-      addDecimal,
+      addDecimalPoint,
       toggleNegative,
-      equals
+      calculateResult
     }
 
-    actions[action](label)
+    if (
+      action === actionsEnums.addNumber ||
+      action === actionsEnums.addOperator
+    ) {
+      actionsFn[action](label)
+    } else {
+      actionsFn[action]()
+    }
   }
 
   return (
     <div className='grid grid-cols-4 gap-1 overflow-auto light-scrollbars'>
-      {buttons.map(({ id, label, icon, operator, action }) => (
-        <button
-          key={id}
-          className={clsx(
-            'flex justify-center items-center border rounded font-semibold text-lg h-12',
-            { 'bg-zinc-200': !operator },
-            { 'text-zinc-800': !operator },
-            { 'dark:bg-zinc-700': !operator },
-            { 'dark:text-white': !operator },
-            { 'bg-cyan-400': operator },
-            { 'dark:bg-cyan-600': operator },
-            { 'text-zinc-800': operator }
-          )}
-          onClick={handleClick(label, action)}
-        >
-          {Boolean(icon) && (
-            <FontAwesomeIcon
-              icon={icon}
-              size='xs'
-            />
-          )}
-
-          {Boolean(!icon && label && label !== 'c') && <span>{label}</span>}
-
-          {Boolean(label === 'c') && <span>{cleanLabel.toUpperCase()}</span>}
-        </button>
-      ))}
+      {buttons
+        .sort((a, b) => (a.id > b.id ? 1 : -1))
+        .map(({ id, ...data }) => (
+          <Button
+            key={id}
+            {...data}
+            onClick={handleClick}
+          />
+        ))}
     </div>
   )
 }
 
-export default Touchpad
+export default Keyboard

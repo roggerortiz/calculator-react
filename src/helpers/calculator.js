@@ -1,46 +1,45 @@
+import Decimal from './decimal'
+import { operatorsEnum } from './enums'
 import { isFirstOperator, isSecondOperator } from './operators'
 
 const calculateFirstOperation = (elements) => {
-  return elements.reduce((result, element, index) => {
-    if (isFirstOperator(element)) {
+  const result = elements.reduce((result, element, index) => {
+    if (isFirstOperator(element) || !result) {
       return result
-    }
-
-    const number = Number(element)
-
-    if (result === 0) {
-      return number
     }
 
     const operator = elements[index - 1]
 
-    if (result === undefined || (number === 0 && operator === '÷')) {
-      return undefined
+    if (operator === operatorsEnum.times) {
+      return Decimal.times(result, element)
+    } else if (operator === operatorsEnum.divideBy) {
+      return Decimal.divideBy(result, element)
     }
 
-    return operator === 'x' ? result * number : result / number
-  }, 0)
+    return result
+  })
+
+  return result.toString()
 }
 
 const calculateSecondOperation = (elements) => {
-  return elements.reduce((result, element, index) => {
-    if (isSecondOperator(element)) {
+  const result = elements.reduce((result, element, index) => {
+    if (isSecondOperator(element) || !result) {
       return result
     }
 
-    const number = Number(element)
-
-    if (result === 0) {
-      return number
-    }
-
-    if (result === undefined) {
-      return undefined
-    }
-
     const operator = elements[index - 1]
-    return operator === '+' ? result + number : result - number
-  }, 0)
+
+    if (operator === operatorsEnum.plus) {
+      return Decimal.plus(result, element)
+    } else if (operator === operatorsEnum.minus) {
+      return Decimal.minus(result, element)
+    }
+
+    return result
+  })
+
+  return result.toString()
 }
 
 const extractFirstOperations = (elements) => {
