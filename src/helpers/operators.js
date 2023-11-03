@@ -4,9 +4,9 @@ const allOperators = [
   operatorsEnum.plus,
   operatorsEnum.minus,
   operatorsEnum.times,
-  operatorsEnum.divideBy
+  operatorsEnum.divide
 ]
-const firstOperators = [operatorsEnum.times, operatorsEnum.divideBy]
+const firstOperators = [operatorsEnum.times, operatorsEnum.divide]
 const secondOperators = [operatorsEnum.plus, operatorsEnum.minus]
 
 export const isOperator = (value) => {

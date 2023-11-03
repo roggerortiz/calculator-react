@@ -1,38 +1,57 @@
-import clsx from 'clsx'
 import PropTypes from 'prop-types'
-import ButtonLabel from './ButtonLabel'
+import { buttonTypesEnum } from '../helpers/enums'
+import { useCalculator } from '../hooks/useCalculator'
+import ButtonAccept from './ButtonAccept'
+import ButtonBackspace from './ButtonBackspace'
+import ButtonClean from './ButtonClean'
+import ButtonDecimalPoint from './ButtonDecimalPoint'
+import ButtonEquals from './ButtonEquals'
+import ButtonNumber from './ButtonNumber'
+import ButtonOperator from './ButtonOperator'
+import ButtonPercent from './ButtonPercent'
+import ButtonPlusMinus from './ButtonPlusMinus'
 
-function Button({ label, clean, icon, operator, action, onClick }) {
-  return (
-    <button
-      className={clsx(
-        'flex justify-center items-center border rounded font-semibold text-lg h-12',
-        { 'bg-zinc-200': !operator },
-        { 'text-zinc-800': !operator },
-        { 'dark:bg-zinc-700': !operator },
-        { 'dark:text-white': !operator },
-        { 'bg-cyan-400': operator },
-        { 'dark:bg-cyan-600': operator },
-        { 'text-zinc-800': operator }
-      )}
-      onClick={onClick(label, action)}
-    >
-      <ButtonLabel
-        label={label}
-        clean={clean}
-        icon={icon}
-      />
-    </button>
-  )
+function Button({ label, type }) {
+  const { editing } = useCalculator()
+
+  if (type === buttonTypesEnum.clean) {
+    return <ButtonClean />
+  }
+
+  if (type === buttonTypesEnum.backspace) {
+    return <ButtonBackspace />
+  }
+
+  if (type === buttonTypesEnum.percent) {
+    return <ButtonPercent />
+  }
+
+  if (type === buttonTypesEnum.plusMinus) {
+    return <ButtonPlusMinus />
+  }
+
+  if (type === buttonTypesEnum.operator) {
+    return <ButtonOperator label={label} />
+  }
+
+  if (type === buttonTypesEnum.number) {
+    return <ButtonNumber label={label} />
+  }
+
+  if (type === buttonTypesEnum.decimalPoint) {
+    return <ButtonDecimalPoint />
+  }
+
+  if (type === buttonTypesEnum.equals) {
+    return !editing ? <ButtonEquals /> : <ButtonAccept />
+  }
+
+  return <></>
 }
 
 Button.propTypes = {
   label: PropTypes.string,
-  icon: PropTypes.any,
-  clean: PropTypes.bool,
-  operator: PropTypes.bool,
-  action: PropTypes.string,
-  onClick: PropTypes.func
+  type: PropTypes.string
 }
 
 export default Button

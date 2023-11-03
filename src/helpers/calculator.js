@@ -13,7 +13,7 @@ const calculateFirstOperation = (elements) => {
 
       if (operator === operatorsEnum.times) {
         return BigNumber(result).times(element).toNumber()
-      } else if (operator === operatorsEnum.divideBy) {
+      } else if (operator === operatorsEnum.divide) {
         const quotient = BigNumber(result).dividedBy(element).toNumber()
         return quotient !== Infinity ? quotient : undefined
       }
