@@ -1,45 +1,54 @@
-import Decimal from './decimal'
+import BigNumber from 'bignumber.js'
 import { operatorsEnum } from './enums'
 import { isFirstOperator, isSecondOperator } from './operators'
 
 const calculateFirstOperation = (elements) => {
-  const result = elements.reduce((result, element, index) => {
-    if (isFirstOperator(element) || !result) {
+  try {
+    const result = elements.reduce((result, element, index) => {
+      if (isFirstOperator(element) || !result) {
+        return result
+      }
+
+      const operator = elements[index - 1]
+
+      if (operator === operatorsEnum.times) {
+        return BigNumber(result).times(element).toNumber()
+      } else if (operator === operatorsEnum.divideBy) {
+        const quotient = BigNumber(result).dividedBy(element).toNumber()
+        return quotient !== Infinity ? quotient : undefined
+      }
+
       return result
-    }
+    })
 
-    const operator = elements[index - 1]
-
-    if (operator === operatorsEnum.times) {
-      return Decimal.times(result, element)
-    } else if (operator === operatorsEnum.divideBy) {
-      return Decimal.divideBy(result, element)
-    }
-
-    return result
-  })
-
-  return result.toString()
+    return result ? result.toString() : undefined
+  } catch {
+    return undefined
+  }
 }
 
 const calculateSecondOperation = (elements) => {
-  const result = elements.reduce((result, element, index) => {
-    if (isSecondOperator(element) || !result) {
+  try {
+    const result = elements.reduce((result, element, index) => {
+      if (isSecondOperator(element) || !result) {
+        return result
+      }
+
+      const operator = elements[index - 1]
+
+      if (operator === operatorsEnum.plus) {
+        return BigNumber(result).plus(element).toNumber()
+      } else if (operator === operatorsEnum.minus) {
+        return BigNumber(result).minus(element).toNumber()
+      }
+
       return result
-    }
+    })
 
-    const operator = elements[index - 1]
-
-    if (operator === operatorsEnum.plus) {
-      return Decimal.plus(result, element)
-    } else if (operator === operatorsEnum.minus) {
-      return Decimal.minus(result, element)
-    }
-
-    return result
-  })
-
-  return result.toString()
+    return result ? result.toString() : undefined
+  } catch {
+    return undefined
+  }
 }
 
 const extractFirstOperations = (elements) => {

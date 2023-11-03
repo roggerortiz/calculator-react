@@ -21,7 +21,7 @@ export const buttons = [
     operator: true,
     action: actionsEnums.addOperator
   },
-  { id: 5, label: '7', operator: false, action: actionsEnums.addNumber },
+  { id: 5, label: 'a', operator: false, action: actionsEnums.addNumber },
   { id: 6, label: '8', operator: false, action: actionsEnums.addNumber },
   { id: 7, label: '9', operator: false, action: actionsEnums.addNumber },
   {
