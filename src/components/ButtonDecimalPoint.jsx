@@ -4,7 +4,7 @@ import { useCalculator } from '../hooks/useCalculator'
 
 function ButtonDecimalPoint() {
   const {
-    hasResult,
+    equals,
     editing,
     editOperator,
     lastElement,
@@ -15,16 +15,12 @@ function ButtonDecimalPoint() {
   const handleClick = (e) => {
     e.preventDefault()
 
-    if (hasResult && !lastElement) {
+    if ((equals && !lastElement) || lastElement.includes('.')) {
       return
     }
 
     if (isOperator(lastElement)) {
       addElement('0.')
-      return
-    }
-
-    if (lastElement.includes('.')) {
       return
     }
 

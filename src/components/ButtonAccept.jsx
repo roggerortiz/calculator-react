@@ -3,13 +3,14 @@ import { useCalculator } from '../hooks/useCalculator'
 import ButtonIcon from './ButtonIcon'
 
 function ButtonAccept() {
-  const { setEditing, setEditIndex, setEditValue } = useCalculator()
+  const { setEditing, setEditIndex, setEquals } = useCalculator()
 
   const handleClick = (e) => {
     e.preventDefault()
+
     setEditing(false)
     setEditIndex(-1)
-    setEditValue('')
+    setEquals(true)
   }
 
   return (

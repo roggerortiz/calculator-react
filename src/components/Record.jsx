@@ -1,50 +1,32 @@
-import clsx from 'clsx'
 import PropTypes from 'prop-types'
 import { isOperator } from '../helpers/operators'
 import { useCalculator } from '../hooks/useCalculator'
 
 function Record({ index, record }) {
   const {
-    records,
-    setHasResult,
-    setElements,
+    setEquals,
     setEditing,
     setEditIndex,
-    setEditValue,
     setEditReplace,
     setEditOperator
   } = useCalculator()
 
-  const maxValidIndex = records.length - 3
-
   const handleClick = (e) => {
     e.preventDefault()
 
-    if (index > maxValidIndex) {
-      return
-    }
-
-    const elements = [...records].slice(0, -2)
-
-    setHasResult(false)
-    setElements(elements)
-
+    setEquals(false)
     setEditing(true)
     setEditIndex(index)
-    setEditValue(record)
     setEditReplace(!isOperator(record))
     setEditOperator(isOperator(record))
   }
 
   return (
     <div
-      className={clsx('border-2 border-transparent px-0.5', {
-        'cursor-default': index > maxValidIndex,
-        'cursor-pointer': index <= maxValidIndex
-      })}
+      className='border-2 border-transparent px-0.5 cursor-pointer'
       onClick={handleClick}
     >
-      {record}
+      <span>{record}</span>
     </div>
   )
 }

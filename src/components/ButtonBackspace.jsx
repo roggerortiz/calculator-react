@@ -6,7 +6,7 @@ import ButtonIcon from './ButtonIcon'
 
 function ButtonBackspace() {
   const {
-    hasResult,
+    equals,
     editing,
     editOperator,
     elements,
@@ -22,7 +22,7 @@ function ButtonBackspace() {
     if (
       !elements.length ||
       (editing && editOperator) ||
-      (hasResult && !lastElement) ||
+      (equals && !lastElement) ||
       (elements.length === 1 && lastElement === '0')
     ) {
       return

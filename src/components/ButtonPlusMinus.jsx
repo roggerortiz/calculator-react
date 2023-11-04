@@ -7,7 +7,7 @@ import ButtonIcon from './ButtonIcon'
 
 function ButtonPlusMinus() {
   const {
-    hasResult,
+    equals,
     editing,
     editOperator,
     elements,
@@ -20,8 +20,8 @@ function ButtonPlusMinus() {
 
     if (
       isOperator(lastElement) ||
+      (equals && !lastElement) ||
       (editing && editOperator) ||
-      (hasResult && !lastElement) ||
       (elements.length === 1 && lastElement === '0')
     ) {
       return

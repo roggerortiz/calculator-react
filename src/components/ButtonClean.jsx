@@ -7,9 +7,9 @@ function ButtonClean() {
     cleanLabel,
     editing,
     editOperator,
-    setRecords,
     resetCleanLabel,
-    resetElements
+    resetElements,
+    setRecords
   } = useCalculator()
 
   const handleClick = (e) => {

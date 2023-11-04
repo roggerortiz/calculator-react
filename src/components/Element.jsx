@@ -5,12 +5,10 @@ import { useCalculator } from '../hooks/useCalculator'
 
 function Element({ index, element }) {
   const {
-    hasResult,
+    equals,
     editIndex,
-    editValue,
     setEditing,
     setEditIndex,
-    setEditValue,
     setEditReplace,
     setEditOperator
   } = useCalculator()
@@ -18,13 +16,12 @@ function Element({ index, element }) {
   const handleClick = (e) => {
     e.preventDefault()
 
-    if (hasResult) {
+    if (equals) {
       return
     }
 
     setEditing(true)
     setEditIndex(index)
-    setEditValue(element)
     setEditReplace(!isOperator(element))
     setEditOperator(isOperator(element))
   }
@@ -36,12 +33,12 @@ function Element({ index, element }) {
         { 'border-cyan-400': index === editIndex },
         { 'dark:border-cyan-600': index === editIndex },
         { 'border-transparent': index !== editIndex },
-        { 'cursor-default': index === editIndex || hasResult },
-        { 'cursor-pointer': index !== editIndex && !hasResult }
+        { 'cursor-default': index === editIndex || equals },
+        { 'cursor-pointer': index !== editIndex && !equals }
       )}
       onClick={handleClick}
     >
-      <span>{editIndex === index ? editValue : element}</span>
+      <span>{element}</span>
     </div>
   )
 }

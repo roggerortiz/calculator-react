@@ -13,14 +13,13 @@ import ButtonIcon from './ButtonIcon'
 
 function ButtonOperator({ label }) {
   const {
-    hasResult,
+    equals,
     elements,
     lastElement,
     editing,
     editIndex,
     editOperator,
     setElements,
-    setEditValue,
     addElement,
     updateLastElement
   } = useCalculator()
@@ -33,7 +32,7 @@ function ButtonOperator({ label }) {
   }
 
   const handleSetOperator = () => {
-    if (hasResult && !lastElement) {
+    if (equals && !lastElement) {
       return
     }
 
@@ -47,8 +46,6 @@ function ButtonOperator({ label }) {
   const handleEditOperator = () => {
     const newElements = [...elements]
     newElements[editIndex] = label
-
-    setEditValue(label)
     setElements(newElements)
   }
 

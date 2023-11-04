@@ -5,7 +5,7 @@ import { useCalculator } from '../hooks/useCalculator'
 
 function ButtonNumber({ label }) {
   const {
-    hasResult,
+    equals,
     elements,
     editing,
     editIndex,
@@ -13,17 +13,20 @@ function ButtonNumber({ label }) {
     editOperator,
     lastElement,
     addElement,
-    setHasResult,
+    setEquals,
     setElements,
-    setEditValue,
     setEditReplace,
     updateLastElement
   } = useCalculator()
 
   const handleSetNumber = () => {
-    if (hasResult) {
-      setHasResult(false)
+    if (elements.length === 1 && lastElement === '0' && label === '0') {
+      return
+    }
+
+    if (equals) {
       setElements([label])
+      setEquals(false)
       return
     }
 
@@ -37,12 +40,9 @@ function ButtonNumber({ label }) {
       return
     }
 
-    if (elements.length === 1 && lastElement === '0' && label === '0') {
-      return
-    }
-
     const prevLastElement = lastElement !== '0' ? lastElement : ''
     const newLastElement = `${prevLastElement}${label}`
+
     updateLastElement(newLastElement)
   }
 
@@ -60,7 +60,6 @@ function ButtonNumber({ label }) {
     newElements[editIndex] = newElement
 
     setEditReplace(false)
-    setEditValue(newElement)
     setElements(newElements)
   }
 

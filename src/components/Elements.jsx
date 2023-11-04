@@ -1,15 +1,12 @@
 import { useCalculator } from '../hooks/useCalculator'
 import Element from './Element'
+import Result from './Result'
 
 function Elements() {
-  const { hasResult, elements, lastElement } = useCalculator()
+  const { equals, elements } = useCalculator()
 
-  if (hasResult && !lastElement) {
-    return (
-      <div className='border-2 border-transparent p-0.5 cursor-default'>
-        <span>Invalid Operation</span>
-      </div>
-    )
+  if (equals) {
+    return <Result />
   }
 
   return (

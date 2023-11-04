@@ -2,14 +2,10 @@ import { useCalculator } from '../hooks/useCalculator'
 import Record from './Record'
 
 function Records() {
-  const { records } = useCalculator()
+  const { records, lastElement } = useCalculator()
 
-  if (!records.length) {
-    return (
-      <div className='border-2 border-transparent px-0.5'>
-        <>&nbsp;</>
-      </div>
-    )
+  if (!records.length || (records.length === 1 && lastElement === '0')) {
+    return <></>
   }
 
   return (

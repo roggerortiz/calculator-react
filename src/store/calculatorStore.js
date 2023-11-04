@@ -6,7 +6,9 @@ export const useCalculatorStore = create((set) => ({
   cleanLabel: cleanLabelsEnum.ac,
   records: [],
   elements: ['0'],
-  hasResult: false,
+  result: undefined,
+  equals: false,
+  recalculate: 0,
   editing: false,
   editIndex: -1,
   editValue: '',
@@ -15,38 +17,58 @@ export const useCalculatorStore = create((set) => ({
   setTheme: (theme) => set({ theme }),
   resetCleanLabel: () => set({ cleanLabel: cleanLabelsEnum.ac }),
   setRecords: (records) => set({ records }),
-  setElements: (elements) => set({ elements }),
-  setHasResult: (hasResult) => set({ hasResult }),
-  resetElements: (element) => {
-    return set({
-      elements: [element ?? '0'],
+  setResult: (result) => set({ result }),
+  setEquals: (equals) => set({ equals }),
+  setElements: (elements) => {
+    return set(({ recalculate }) => ({
+      elements,
+      recalculate: recalculate + 1
+    }))
+  },
+  resetElements: () => {
+    return set(({ recalculate }) => ({
       cleanLabel: cleanLabelsEnum.ac,
-      hasResult: false
-    })
+      elements: ['0'],
+      equals: false,
+      recalculate: recalculate + 1
+    }))
   },
   addElement: (newElement) => {
-    return set((state) => {
-      const elements = [...state.elements, newElement]
-      return { elements, cleanLabel: cleanLabelsEnum.c, hasResult: false }
+    return set(({ elements, recalculate }) => {
+      const newElements = [...elements, newElement]
+      return {
+        cleanLabel: cleanLabelsEnum.c,
+        elements: newElements,
+        equals: false,
+        recalculate: recalculate + 1
+      }
     })
   },
   updateLastElement: (lastElement) => {
-    return set((state) => {
-      const elements = [...state.elements]
-      elements[elements.length - 1] = lastElement
-      return { elements, cleanLabel: cleanLabelsEnum.c, hasResult: false }
+    return set(({ elements, recalculate }) => {
+      const newElements = [...elements]
+      newElements[newElements.length - 1] = lastElement
+      return {
+        cleanLabel: cleanLabelsEnum.c,
+        elements: newElements,
+        equals: false,
+        recalculate: recalculate + 1
+      }
     })
   },
   removeLastElement: () => {
-    return set((state) => {
-      const prevElements = [...state.elements]
-      const elements = prevElements.slice(0, -1)
-      return { elements, cleanLabel: cleanLabelsEnum.c, hasResult: false }
+    return set(({ elements, recalculate }) => {
+      const newElements = [...elements].slice(0, -1)
+      return {
+        cleanLabel: cleanLabelsEnum.c,
+        elements: newElements,
+        equals: false,
+        recalculate: recalculate + 1
+      }
     })
   },
   setEditing: (editing) => set({ editing }),
   setEditIndex: (editIndex) => set({ editIndex }),
-  setEditValue: (editValue) => set({ editValue }),
   setEditReplace: (editReplace) => set({ editReplace }),
   setEditOperator: (editOperator) => set({ editOperator })
 }))
