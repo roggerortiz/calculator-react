@@ -77,7 +77,7 @@ function ButtonOperator({ label }) {
 }
 
 ButtonOperator.propTypes = {
-  label: PropTypes.string
+  label: PropTypes.string.isRequired
 }
 
 export default ButtonOperator

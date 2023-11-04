@@ -28,7 +28,7 @@ function ButtonBackspace() {
       return
     }
 
-    const newLastElement = lastElement.slice(0, lastElement.length - 1)
+    const newLastElement = lastElement.slice(0, -1)
 
     if (isOperator(lastElement) || (!newLastElement && elements.length > 1)) {
       removeLastElement()

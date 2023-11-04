@@ -51,7 +51,7 @@ function Button({ label, type }) {
 
 Button.propTypes = {
   label: PropTypes.string,
-  type: PropTypes.string
+  type: PropTypes.string.isRequired
 }
 
 export default Button

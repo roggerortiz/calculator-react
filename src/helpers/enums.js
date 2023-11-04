@@ -2,7 +2,8 @@ export const operatorsEnum = Object.freeze({
   plus: '+',
   minus: '-',
   times: 'x',
-  divide: '÷'
+  divide: '÷',
+  equals: '='
 })
 
 export const cleanLabelsEnum = Object.freeze({

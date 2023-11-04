@@ -2,10 +2,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import PropTypes from 'prop-types'
 
 function ButtonIcon({ icon }) {
-  if (!icon) {
-    return <></>
-  }
-
   return (
     <FontAwesomeIcon
       icon={icon}
@@ -15,7 +11,7 @@ function ButtonIcon({ icon }) {
 }
 
 ButtonIcon.propTypes = {
-  icon: PropTypes.any
+  icon: PropTypes.any.isRequired
 }
 
 export default ButtonIcon

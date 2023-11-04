@@ -7,8 +7,8 @@ function ButtonClean() {
     cleanLabel,
     editing,
     editOperator,
+    setRecords,
     resetCleanLabel,
-    setHistory,
     resetElements
   } = useCalculator()
 
@@ -23,7 +23,7 @@ function ButtonClean() {
       resetCleanLabel()
       resetElements()
     } else if (cleanLabel === cleanLabelsEnum.ac) {
-      setHistory('')
+      setRecords([])
     }
   }
 

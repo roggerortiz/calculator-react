@@ -1,10 +1,11 @@
 import { faEquals } from '@fortawesome/free-solid-svg-icons'
 import { calculate } from '../helpers/calculator'
+import { operatorsEnum } from '../helpers/enums'
 import { useCalculator } from '../hooks/useCalculator'
 import ButtonIcon from './ButtonIcon'
 
 function ButtonEquals() {
-  const { elements, hasResult, setHistory, setElements, setHasResult } =
+  const { elements, hasResult, setRecords, setElements, setHasResult } =
     useCalculator()
 
   const handleClick = (e) => {
@@ -19,10 +20,15 @@ function ButtonEquals() {
     }
 
     const result = calculate(elements)
-    const history = [elements.join(' '), result ?? ''].join(' = ').trim()
+    const records = [...elements]
 
-    setHistory(history)
+    if (result) {
+      records.push(operatorsEnum.equals)
+      records.push(result)
+    }
+
     setElements([result])
+    setRecords(records)
     setHasResult(true)
   }
 

@@ -89,7 +89,7 @@ function ButtonNumber({ label }) {
 }
 
 ButtonNumber.propTypes = {
-  label: PropTypes.string
+  label: PropTypes.string.isRequired
 }
 
 export default ButtonNumber

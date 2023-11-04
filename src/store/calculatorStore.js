@@ -4,9 +4,9 @@ import { cleanLabelsEnum } from '../helpers/enums'
 export const useCalculatorStore = create((set) => ({
   theme: '',
   cleanLabel: cleanLabelsEnum.ac,
-  history: '',
-  hasResult: false,
+  records: [],
   elements: ['0'],
+  hasResult: false,
   editing: false,
   editIndex: -1,
   editValue: '',
@@ -14,9 +14,9 @@ export const useCalculatorStore = create((set) => ({
   editOperator: false,
   setTheme: (theme) => set({ theme }),
   resetCleanLabel: () => set({ cleanLabel: cleanLabelsEnum.ac }),
-  setHistory: (history) => set({ history }),
-  setHasResult: (hasResult) => set({ hasResult }),
+  setRecords: (records) => set({ records }),
   setElements: (elements) => set({ elements }),
+  setHasResult: (hasResult) => set({ hasResult }),
   resetElements: (element) => {
     return set({
       elements: [element ?? '0'],
@@ -40,7 +40,7 @@ export const useCalculatorStore = create((set) => ({
   removeLastElement: () => {
     return set((state) => {
       const prevElements = [...state.elements]
-      const elements = prevElements.slice(0, prevElements.length - 1)
+      const elements = prevElements.slice(0, -1)
       return { elements, cleanLabel: cleanLabelsEnum.c, hasResult: false }
     })
   },
