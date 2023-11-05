@@ -1,5 +1,6 @@
 import { useCalculator } from '../hooks/useCalculator'
 import Record from './Record'
+import Result from './Result'
 
 function Records() {
   const { records, lastElement } = useCalculator()
@@ -17,6 +18,8 @@ function Records() {
           record={record}
         />
       ))}
+
+      <Result />
     </>
   )
 }

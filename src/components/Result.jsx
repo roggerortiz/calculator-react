@@ -10,9 +10,11 @@ function Result() {
         <span>{operatorsEnum.equals}</span>
       </div>
 
-      <div className='border-2 border-transparent p-0.5 cursor-default'>
-        <span>{result ? result : 'Invalid Operation'}</span>
-      </div>
+      {result ? (
+        <div className='border-2 border-transparent p-0.5 cursor-default'>
+          <span>{result === Infinity ? 'Can not divide by zero' : result}</span>
+        </div>
+      ) : null}
     </>
   )
 }
