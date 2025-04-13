@@ -1,8 +1,10 @@
 import { create } from 'zustand'
-import { cleanLabelsEnum } from '../helpers/enums'
+import { calculatorsEnum, cleanLabelsEnum } from '../helpers/enums'
+import { setDocumentTheme } from '../helpers/theme'
 
 export const useCalculatorStore = create((set) => ({
   theme: '',
+  calculator: calculatorsEnum.standar,
   cleanLabel: cleanLabelsEnum.ac,
   records: [],
   elements: ['0'],
@@ -14,7 +16,11 @@ export const useCalculatorStore = create((set) => ({
   editValue: '',
   editReplace: false,
   editOperator: false,
-  setTheme: (theme) => set({ theme }),
+  setTheme: (theme) => {
+    setDocumentTheme(theme)
+    return set({ theme })
+  },
+  setCalculator: (calculator) => set({ calculator }),
   resetCleanLabel: () => set({ cleanLabel: cleanLabelsEnum.ac }),
   setRecords: (records) => set({ records }),
   setResult: (result) => set({ result }),

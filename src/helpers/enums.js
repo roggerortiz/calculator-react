@@ -1,3 +1,13 @@
+export const themesEnum = Object.freeze({
+  light: 'light',
+  dark: 'dark'
+})
+
+export const calculatorsEnum = Object.freeze({
+  standar: 'standar',
+  scientific: 'scientific'
+})
+
 export const operatorsEnum = Object.freeze({
   plus: '+',
   minus: '-',
