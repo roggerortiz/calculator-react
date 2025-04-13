@@ -4,13 +4,7 @@ import { useCalculator } from '../hooks/useCalculator'
 import ButtonIcon from './ButtonIcon'
 
 function ButtonPercent() {
-  const {
-    equals,
-    editing,
-    editOperator,
-    lastElement,
-    updateLastElement
-  } = useCalculator()
+  const { equals, editing, editOperator, lastElement, updateLastElement } = useCalculator()
 
   const handleClick = (e) => {
     e.preventDefault()

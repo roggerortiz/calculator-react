@@ -5,16 +5,8 @@ import { useCalculator } from '../hooks/useCalculator'
 import ButtonIcon from './ButtonIcon'
 
 function ButtonBackspace() {
-  const {
-    equals,
-    editing,
-    editOperator,
-    elements,
-    lastElement,
-    resetElements,
-    updateLastElement,
-    removeLastElement
-  } = useCalculator()
+  const { equals, editing, editOperator, elements, lastElement, resetElements, updateLastElement, removeLastElement } =
+    useCalculator()
 
   const handleClick = (e) => {
     e.preventDefault()

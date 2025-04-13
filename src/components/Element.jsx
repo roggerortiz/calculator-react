@@ -4,14 +4,7 @@ import { isOperator } from '../helpers/operators'
 import { useCalculator } from '../hooks/useCalculator'
 
 function Element({ index, element }) {
-  const {
-    equals,
-    editIndex,
-    setEditing,
-    setEditIndex,
-    setEditReplace,
-    setEditOperator
-  } = useCalculator()
+  const { equals, editIndex, setEditing, setEditIndex, setEditReplace, setEditOperator } = useCalculator()
 
   const handleClick = (e) => {
     e.preventDefault()

@@ -1,9 +1,4 @@
-import {
-  faDivide,
-  faMinus,
-  faPlus,
-  faXmark
-} from '@fortawesome/free-solid-svg-icons'
+import { faDivide, faMinus, faPlus, faXmark } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
 import PropTypes from 'prop-types'
 import { operatorsEnum } from '../helpers/enums'

@@ -3,14 +3,7 @@ import { cleanLabelsEnum } from '../helpers/enums'
 import { useCalculator } from '../hooks/useCalculator'
 
 function ButtonClean() {
-  const {
-    cleanLabel,
-    editing,
-    editOperator,
-    resetCleanLabel,
-    resetElements,
-    setRecords
-  } = useCalculator()
+  const { cleanLabel, editing, editOperator, resetCleanLabel, resetElements, setRecords } = useCalculator()
 
   const handleClick = (e) => {
     e.preventDefault()

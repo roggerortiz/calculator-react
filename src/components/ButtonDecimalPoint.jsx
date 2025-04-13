@@ -3,14 +3,7 @@ import { isOperator } from '../helpers/operators'
 import { useCalculator } from '../hooks/useCalculator'
 
 function ButtonDecimalPoint() {
-  const {
-    equals,
-    editing,
-    editOperator,
-    lastElement,
-    addElement,
-    updateLastElement
-  } = useCalculator()
+  const { equals, editing, editOperator, lastElement, addElement, updateLastElement } = useCalculator()
 
   const handleClick = (e) => {
     e.preventDefault()

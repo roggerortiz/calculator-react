@@ -8,15 +8,10 @@ import Keyboard from './Keyboard'
 import Wrapper from './Wrapper'
 
 function Calculator() {
-  const { equals, elements, recalculate, setResult, setRecords } =
-    useCalculator()
+  const { equals, elements, recalculate, setResult, setRecords } = useCalculator()
 
   const calculateResult = () => {
-    if (
-      equals ||
-      !elements.length ||
-      (elements.length === 1 && elements[0] === '0')
-    ) {
+    if (equals || !elements.length || (elements.length === 1 && elements[0] === '0')) {
       return
     }
 

@@ -3,13 +3,7 @@ import { isOperator } from '../helpers/operators'
 import { useCalculator } from '../hooks/useCalculator'
 
 function Record({ index, record }) {
-  const {
-    setEquals,
-    setEditing,
-    setEditIndex,
-    setEditReplace,
-    setEditOperator
-  } = useCalculator()
+  const { setEquals, setEditing, setEditIndex, setEditReplace, setEditOperator } = useCalculator()
 
   const handleClick = (e) => {
     e.preventDefault()

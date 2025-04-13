@@ -1,9 +1,9 @@
+import { operatorsEnum } from '../helpers/enums'
 import { useCalculator } from '../hooks/useCalculator'
 import Record from './Record'
-import Result from './Result'
 
 function Records() {
-  const { records, lastElement } = useCalculator()
+  const { equals, records, lastElement } = useCalculator()
 
   if (!records.length || (records.length === 1 && lastElement === '0')) {
     return <></>
@@ -19,7 +19,12 @@ function Records() {
         />
       ))}
 
-      <Result />
+      {equals && (
+        <Record
+          index={records.length}
+          record={operatorsEnum.equals}
+        />
+      )}
     </>
   )
 }

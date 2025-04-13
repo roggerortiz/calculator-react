@@ -6,14 +6,7 @@ import { useCalculator } from '../hooks/useCalculator'
 import ButtonIcon from './ButtonIcon'
 
 function ButtonPlusMinus() {
-  const {
-    equals,
-    editing,
-    editOperator,
-    elements,
-    lastElement,
-    updateLastElement
-  } = useCalculator()
+  const { equals, editing, editOperator, elements, lastElement, updateLastElement } = useCalculator()
 
   const handleClick = (e) => {
     e.preventDefault()
@@ -29,9 +22,7 @@ function ButtonPlusMinus() {
 
     const isNegative = lastElement.startsWith(operatorsEnum.minus)
 
-    const newLastElement = isNegative
-      ? lastElement.slice(1)
-      : `${operatorsEnum.minus}${lastElement}`
+    const newLastElement = isNegative ? lastElement.slice(1) : `${operatorsEnum.minus}${lastElement}`
 
     updateLastElement(newLastElement)
   }
