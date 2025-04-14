@@ -1,7 +1,8 @@
-import clsx from 'clsx'
 import PropTypes from 'prop-types'
+import { buttonStylesEnum, numbersEnum } from '../helpers/enums'
 import { isOperator } from '../helpers/operators'
 import { useCalculator } from '../hooks/useCalculator'
+import Button from './Button'
 
 function ButtonNumber({ label }) {
   const {
@@ -20,7 +21,7 @@ function ButtonNumber({ label }) {
   } = useCalculator()
 
   const handleSetNumber = () => {
-    if (elements.length === 1 && lastElement === '0' && label === '0') {
+    if (elements.length === 1 && lastElement === numbersEnum.zero && label === numbersEnum.zero) {
       return
     }
 
@@ -68,22 +69,17 @@ function ButtonNumber({ label }) {
 
     if (!editing) {
       handleSetNumber()
-    } else if (!editOperator) {
+    } else if (editing && !editOperator) {
       handleEditNumber()
     }
   }
 
   return (
-    <button
-      className={clsx(
-        'flex justify-center items-center border rounded font-semibold text-lg h-12 bg-zinc-200 text-zinc-800 dark:bg-zinc-700 dark:text-white',
-        { 'opacity-60': editing && editOperator }
-      )}
-      disabled={editing && editOperator}
+    <Button
+      label={label}
+      type={buttonStylesEnum.secondary}
       onClick={handleClick}
-    >
-      <span>{label}</span>
-    </button>
+    />
   )
 }
 

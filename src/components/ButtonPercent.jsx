@@ -1,7 +1,6 @@
-import { faPercent } from '@fortawesome/free-solid-svg-icons'
-import clsx from 'clsx'
+import { buttonsEnum, buttonStylesEnum } from '../helpers/enums'
 import { useCalculator } from '../hooks/useCalculator'
-import ButtonIcon from './ButtonIcon'
+import Button from './Button'
 
 function ButtonPercent() {
   const { equals, editing, editOperator, lastElement, updateLastElement } = useCalculator()
@@ -19,16 +18,11 @@ function ButtonPercent() {
   }
 
   return (
-    <button
-      className={clsx(
-        'flex justify-center items-center border rounded font-semibold text-lg h-12 bg-cyan-500 dark:bg-cyan-700 text-white',
-        { 'opacity-60': editing && editOperator }
-      )}
-      disabled={editing && editOperator}
+    <Button
+      icon={buttonsEnum.percent}
+      type={buttonStylesEnum.primary}
       onClick={handleClick}
-    >
-      <ButtonIcon icon={faPercent} />
-    </button>
+    />
   )
 }
 

@@ -8,6 +8,25 @@ export const calculatorsEnum = Object.freeze({
   scientific: 'scientific'
 })
 
+export const cleanLabelsEnum = Object.freeze({
+  c: 'C',
+  ac: 'AC'
+})
+
+export const numbersEnum = Object.freeze({
+  one: '1',
+  two: '2',
+  three: '3',
+  four: '4',
+  five: '5',
+  six: '6',
+  seven: '7',
+  eight: '8',
+  nine: '9',
+  zero: '0',
+  decimalPoint: '.'
+})
+
 export const operatorsEnum = Object.freeze({
   plus: '+',
   minus: '-',
@@ -15,21 +34,27 @@ export const operatorsEnum = Object.freeze({
   divide: '÷',
   equals: '=',
   asterisk: '*',
-  slash: '/'
+  slash: '/',
+  sin: 'sin',
+  cos: 'cos',
+  tan: 'tan'
 })
 
-export const cleanLabelsEnum = Object.freeze({
-  c: 'C',
-  ac: 'AC'
-})
-
-export const buttonTypesEnum = Object.freeze({
-  clean: 'clean',
-  percent: 'percent',
+export const buttonsEnum = Object.freeze({
+  calculator: 'calculator',
   backspace: 'backspace',
-  plusMinus: 'plusMinus',
-  equals: 'equals',
-  operator: 'operator',
+  clean: 'clean',
   number: 'number',
-  decimalPoint: 'decimalPoint'
+  percent: 'percent',
+  decimalPoint: 'decimalPoint',
+  operator: 'operator',
+  operation: 'operation',
+  accept: 'accept',
+  equals: 'equals'
+})
+
+export const buttonStylesEnum = Object.freeze({
+  primary: 'primary',
+  secondary: 'secondary',
+  danger: 'danger'
 })

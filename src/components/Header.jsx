@@ -4,17 +4,7 @@ import { calculatorsEnum, themesEnum } from '../helpers/enums'
 import { useCalculator } from '../hooks/useCalculator'
 
 function Header() {
-  const { theme, setTheme, calculator, setCalculator } = useCalculator()
-
-  const handleToggleCalculator = (e) => {
-    e.preventDefault()
-
-    if (calculator === calculatorsEnum.standar) {
-      setCalculator(calculatorsEnum.scientific)
-    } else if (calculator === calculatorsEnum.scientific) {
-      setCalculator(calculatorsEnum.standar)
-    }
-  }
+  const { theme, setTheme, calculator } = useCalculator()
 
   const handleToggleDark = (e) => {
     e.preventDefault()
@@ -28,13 +18,12 @@ function Header() {
 
   return (
     <div className='flex justify-between items-center p-2 -mx-2 -mt-2 border-b text-base font-semibold'>
-      <button
-        className='flex items-center gap-2 px-2 py-1 leading-none transition duration-200 rounded hover:bg-zinc-200 dark:hover:bg-zinc-700'
-        onClick={handleToggleCalculator}
-      >
-        <FontAwesomeIcon icon={calculator === calculatorsEnum.standar ? faCalculator : faFlask} />
+      <h1 className='flex items-center gap-1 px-2 py-1 leading-none'>
+        <span className='w-4 h-4'>
+          <FontAwesomeIcon icon={calculator === calculatorsEnum.standar ? faCalculator : faFlask} />
+        </span>
         {calculator === calculatorsEnum.standar ? 'Standar' : 'Scientific'} Calculator
-      </button>
+      </h1>
 
       <button
         className='flex items-center justify-center px-2 py-1 leading-none transition duration-200 rounded hover:bg-zinc-200 dark:hover:bg-zinc-700'

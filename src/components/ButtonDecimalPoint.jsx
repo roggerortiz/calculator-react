@@ -1,36 +1,32 @@
-import clsx from 'clsx'
+import { buttonStylesEnum, numbersEnum } from '../helpers/enums'
 import { isOperator } from '../helpers/operators'
 import { useCalculator } from '../hooks/useCalculator'
+import Button from './Button'
 
 function ButtonDecimalPoint() {
-  const { equals, editing, editOperator, lastElement, addElement, updateLastElement } = useCalculator()
+  const { equals, lastElement, addElement, updateLastElement } = useCalculator()
 
   const handleClick = (e) => {
     e.preventDefault()
 
-    if ((equals && !lastElement) || lastElement.includes('.')) {
+    if ((equals && !lastElement) || lastElement.includes(numbersEnum.decimalPoint)) {
       return
     }
 
     if (isOperator(lastElement)) {
-      addElement('0.')
+      addElement(`${numbersEnum.zero}${numbersEnum.decimalPoint}`)
       return
     }
 
-    updateLastElement(`${lastElement}.`)
+    updateLastElement(`${lastElement}${numbersEnum.decimalPoint}`)
   }
 
   return (
-    <button
-      className={clsx(
-        'flex justify-center items-center border rounded font-semibold text-lg h-12 bg-zinc-200 text-zinc-800 dark:bg-zinc-700 dark:text-white',
-        { 'opacity-60': editing && editOperator }
-      )}
-      disabled={editing && editOperator}
+    <Button
+      label={numbersEnum.decimalPoint}
+      type={buttonStylesEnum.secondary}
       onClick={handleClick}
-    >
-      <span>.</span>
-    </button>
+    />
   )
 }
 

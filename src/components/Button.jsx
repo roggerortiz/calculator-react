@@ -1,57 +1,69 @@
+import {
+  faArrowLeft,
+  faCheck,
+  faDivide,
+  faEquals,
+  faMinus,
+  faPercent,
+  faPlus,
+  faRepeat,
+  faXmark
+} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import clsx from 'clsx'
 import PropTypes from 'prop-types'
-import { buttonTypesEnum } from '../helpers/enums'
+import { buttonsEnum, buttonStylesEnum, operatorsEnum } from '../helpers/enums'
 import { useCalculator } from '../hooks/useCalculator'
-import ButtonAccept from './ButtonAccept'
-import ButtonBackspace from './ButtonBackspace'
-import ButtonClean from './ButtonClean'
-import ButtonDecimalPoint from './ButtonDecimalPoint'
-import ButtonEquals from './ButtonEquals'
-import ButtonNumber from './ButtonNumber'
-import ButtonOperator from './ButtonOperator'
-import ButtonPercent from './ButtonPercent'
-import ButtonPlusMinus from './ButtonPlusMinus'
 
-function Button({ label, type }) {
-  const { editing } = useCalculator()
+function Button({ label, icon, type, onClick }) {
+  const { editing, editOperator } = useCalculator()
 
-  if (type === buttonTypesEnum.clean) {
-    return <ButtonClean />
+  const icons = {
+    [operatorsEnum.plus]: faPlus,
+    [operatorsEnum.minus]: faMinus,
+    [[operatorsEnum.times]]: faXmark,
+    [operatorsEnum.divide]: faDivide,
+    [operatorsEnum.equals]: faEquals,
+    [buttonsEnum.accept]: faCheck,
+    [buttonsEnum.percent]: faPercent,
+    [buttonsEnum.backspace]: faArrowLeft,
+    [buttonsEnum.calculator]: faRepeat
   }
 
-  if (type === buttonTypesEnum.backspace) {
-    return <ButtonBackspace />
-  }
+  return (
+    <button
+      className={clsx(
+        'flex items-center justify-center border rounded h-8 text-base font-semibold',
+        { 'text-white': type === buttonStylesEnum.primary || type === buttonStylesEnum.danger },
+        { 'bg-cyan-500': type === buttonStylesEnum.primary },
+        { 'dark:bg-cyan-700': type === buttonStylesEnum.primary },
+        { 'bg-red-500': type === buttonStylesEnum.danger },
+        { 'dark:bg-red-600': type === buttonStylesEnum.danger },
+        { 'text-zinc-800': type === buttonStylesEnum.secondary },
+        { 'bg-zinc-200': type === buttonStylesEnum.secondary },
+        { 'dark:text-white': type === buttonStylesEnum.secondary },
+        { 'dark:bg-zinc-700': type === buttonStylesEnum.secondary },
+        { 'opacity-60': editing && editOperator }
+      )}
+      onClick={onClick}
+    >
+      {label && <span>{label}</span>}
 
-  if (type === buttonTypesEnum.percent) {
-    return <ButtonPercent />
-  }
-
-  if (type === buttonTypesEnum.plusMinus) {
-    return <ButtonPlusMinus />
-  }
-
-  if (type === buttonTypesEnum.operator) {
-    return <ButtonOperator label={label} />
-  }
-
-  if (type === buttonTypesEnum.number) {
-    return <ButtonNumber label={label} />
-  }
-
-  if (type === buttonTypesEnum.decimalPoint) {
-    return <ButtonDecimalPoint />
-  }
-
-  if (type === buttonTypesEnum.equals) {
-    return !editing ? <ButtonEquals /> : <ButtonAccept />
-  }
-
-  return <></>
+      {icon && icons[icon] && (
+        <FontAwesomeIcon
+          size='xs'
+          icon={icons[icon]}
+        />
+      )}
+    </button>
+  )
 }
 
 Button.propTypes = {
   label: PropTypes.string,
-  type: PropTypes.string.isRequired
+  icon: PropTypes.string,
+  type: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired
 }
 
 export default Button

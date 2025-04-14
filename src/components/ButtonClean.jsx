@@ -1,6 +1,6 @@
-import clsx from 'clsx'
-import { cleanLabelsEnum } from '../helpers/enums'
+import { buttonStylesEnum, cleanLabelsEnum } from '../helpers/enums'
 import { useCalculator } from '../hooks/useCalculator'
+import Button from './Button'
 
 function ButtonClean() {
   const { cleanLabel, editing, editOperator, resetCleanLabel, resetElements, setRecords } = useCalculator()
@@ -21,16 +21,11 @@ function ButtonClean() {
   }
 
   return (
-    <button
-      className={clsx(
-        'flex justify-center items-center border rounded font-semibold text-lg h-12 bg-cyan-500 dark:bg-cyan-700 text-white',
-        { 'opacity-60': editing && editOperator }
-      )}
-      disabled={editing && editOperator}
+    <Button
+      label={cleanLabel}
+      type={buttonStylesEnum.primary}
       onClick={handleClick}
-    >
-      <span>{cleanLabel}</span>
-    </button>
+    />
   )
 }
 
