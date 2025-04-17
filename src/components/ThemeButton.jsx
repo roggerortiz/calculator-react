@@ -4,11 +4,11 @@ import { ThemesEnum } from '../helpers/enums'
 import { useCalculator } from '../hooks/useCalculator'
 
 function ThemeButton() {
-  const { theme, toggleTheme } = useCalculator()
+  const { theme, setTheme } = useCalculator()
 
   const handleToggleDark = (e) => {
     e.preventDefault()
-    toggleTheme()
+    setTheme()
   }
 
   return (

@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import clsx from 'clsx'
 import PropTypes from 'prop-types'
-import { ButtonTypesEnum } from '../helpers/enums'
+import { ButtonsEnum } from '../helpers/enums'
 import { useCalculator } from '../hooks/useCalculator'
 
 function Button({ icon, label, type }) {
@@ -9,47 +9,47 @@ function Button({ icon, label, type }) {
     cleanLabel,
     degreesLabel,
     isEditing,
-    editOperator,
-    toggleCalculator,
-    toggleDegrees,
+    isEditingOperator,
+    setCalculator,
+    setDegrees,
     clean,
     backspace,
     percent,
-    number,
-    decimalPoint,
-    operator,
+    setDecimalPoint,
+    setNumber,
+    setOperator,
     equals,
     edited
   } = useCalculator()
 
-  const isClean = type === ButtonTypesEnum.CLEAN
-  const isBackspace = type === ButtonTypesEnum.BACKSPACE
-  const isPercent = type === ButtonTypesEnum.PERCENT
-  const isCalculator = type === ButtonTypesEnum.CALCULATOR
-  const isNumber = type === ButtonTypesEnum.NUMBER
-  const isEquals = type === ButtonTypesEnum.EQUALS
-  const isEdited = type === ButtonTypesEnum.EDITED
-  const isDecimalPoint = type === ButtonTypesEnum.DECIMAL_POINT
-  const isStandarOperator = type === ButtonTypesEnum.OPERATOR
-  const isScientificOperator = type === ButtonTypesEnum.SCIENTIFIC_OPERATOR
-  const isDegrees = type === ButtonTypesEnum.DEGREES
+  const isClean = type === ButtonsEnum.CLEAN
+  const isBackspace = type === ButtonsEnum.BACKSPACE
+  const isPercent = type === ButtonsEnum.PERCENT
+  const isCalculator = type === ButtonsEnum.CALCULATOR
+  const isNumber = type === ButtonsEnum.NUMBER
+  const isEquals = type === ButtonsEnum.EQUALS
+  const isEdited = type === ButtonsEnum.EDITED
+  const isDecimalPoint = type === ButtonsEnum.DECIMAL_POINT
+  const isStandarOperator = type === ButtonsEnum.OPERATOR
+  const isScientificOperator = type === ButtonsEnum.SCIENTIFIC_OPERATOR
+  const isDegrees = type === ButtonsEnum.DEGREES
 
   const isPrimary = isClean || isBackspace || isPercent || isCalculator || isStandarOperator || isEquals
   const isSecondary = isNumber || isDecimalPoint || isDegrees || isScientificOperator
 
   const isDisabled =
-    (isEditing && editOperator && (isClean || isNumber || isDecimalPoint)) ||
-    (isEditing && !editOperator && (isClean || isStandarOperator))
+    (isEditing && isEditingOperator && (isClean || isNumber || isDecimalPoint)) ||
+    (isEditing && !isEditingOperator && (isClean || isStandarOperator))
 
   const handleFunctions = {
-    calculator: toggleCalculator,
-    degrees: toggleDegrees,
+    calculator: setCalculator,
+    degrees: setDegrees,
+    decimalPoint: setDecimalPoint,
+    number: setNumber,
+    operator: setOperator,
     clean,
     backspace,
     percent,
-    number,
-    decimalPoint,
-    operator,
     equals,
     edited
   }

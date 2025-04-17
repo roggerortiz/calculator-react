@@ -1,7 +1,7 @@
 import Mexp from 'math-expression-evaluator'
 import { OperatorsEnum } from './enums'
 
-export const calculateResult = (elements) => {
+export const getResult = (elements) => {
   try {
     const expression = elements
       .join('')

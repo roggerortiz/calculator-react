@@ -8,13 +8,7 @@ export const CalculatorsEnum = Object.freeze({
   SCIENTIFIC: 'scientific'
 })
 
-export const ButtonStylesEnum = Object.freeze({
-  PRIMARY: 'primary',
-  SECONDARY: 'secondary',
-  DANGER: 'danger'
-})
-
-export const ButtonTypesEnum = Object.freeze({
+export const ButtonsEnum = Object.freeze({
   CLEAN: 'clean',
   BACKSPACE: 'backspace',
   CALCULATOR: 'calculator',

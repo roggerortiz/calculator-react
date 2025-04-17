@@ -2,11 +2,11 @@ import PropTypes from 'prop-types'
 import { useCalculator } from '../hooks/useCalculator'
 
 function Record({ index, record }) {
-  const { editing } = useCalculator()
+  const { setEditing } = useCalculator()
 
   const handleClick = (e) => {
     e.preventDefault()
-    editing(index, record, true)
+    setEditing(index, record, true)
   }
 
   return (

@@ -3,22 +3,22 @@ import PropTypes from 'prop-types'
 import { useCalculator } from '../hooks/useCalculator'
 
 function Element({ index, element }) {
-  const { hasResult, editIndex, editing } = useCalculator()
+  const { hasResult, editingIndex, setEditing } = useCalculator()
 
   const handleClick = (e) => {
     e.preventDefault()
-    editing(index, element, false)
+    setEditing(index, element, false)
   }
 
   return (
     <div
       className={clsx(
         'border-2 rounded p-0.5',
-        { 'border-cyan-400': index === editIndex },
-        { 'dark:border-cyan-600': index === editIndex },
-        { 'border-transparent': index !== editIndex },
-        { 'cursor-default': index === editIndex || hasResult },
-        { 'cursor-pointer': index !== editIndex && !hasResult }
+        { 'border-cyan-400': index === editingIndex },
+        { 'dark:border-cyan-600': index === editingIndex },
+        { 'border-transparent': index !== editingIndex },
+        { 'cursor-default': index === editingIndex || hasResult },
+        { 'cursor-pointer': index !== editingIndex && !hasResult }
       )}
       onClick={handleClick}
     >

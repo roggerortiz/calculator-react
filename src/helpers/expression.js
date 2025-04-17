@@ -4,6 +4,10 @@ export const isOperator = (value) => {
   return Object.values(OperatorsEnum).includes(value)
 }
 
+export const isEmptyElements = (elements) => {
+  return elements.length === 1 && elements[0] === NumbersEnum.ZERO
+}
+
 export const getLastElement = (elements) => {
   return elements[elements.length - 1]
 }
