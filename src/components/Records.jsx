@@ -1,16 +1,12 @@
-import { operatorsEnum } from '../helpers/enums'
+import { OperatorsEnum } from '../helpers/enums'
 import { useCalculator } from '../hooks/useCalculator'
 import Record from './Record'
 
 function Records() {
-  const { equals, records, lastElement } = useCalculator()
-
-  if (!records.length || (records.length === 1 && lastElement === '0')) {
-    return <></>
-  }
+  const { hasResult, records } = useCalculator()
 
   return (
-    <>
+    <div className='flex justify-end items-center whitespace-nowrap overflow-hidden w-full text-sm leading-none min-h-[22px]'>
       {records.map((record, index) => (
         <Record
           key={index}
@@ -19,13 +15,13 @@ function Records() {
         />
       ))}
 
-      {equals && (
+      {hasResult && (
         <Record
           index={records.length}
-          record={operatorsEnum.equals}
+          record={OperatorsEnum.EQUALS}
         />
       )}
-    </>
+    </div>
   )
 }
 

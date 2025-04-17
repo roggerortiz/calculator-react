@@ -1,18 +1,12 @@
 import PropTypes from 'prop-types'
-import { isOperator } from '../helpers/operators'
 import { useCalculator } from '../hooks/useCalculator'
 
 function Record({ index, record }) {
-  const { setEquals, setEditing, setEditIndex, setEditReplace, setEditOperator } = useCalculator()
+  const { editing } = useCalculator()
 
   const handleClick = (e) => {
     e.preventDefault()
-
-    setEquals(false)
-    setEditing(true)
-    setEditIndex(index)
-    setEditReplace(!isOperator(record))
-    setEditOperator(isOperator(record))
+    editing(index, record, true)
   }
 
   return (

@@ -1,22 +1,13 @@
 import clsx from 'clsx'
 import PropTypes from 'prop-types'
-import { isOperator } from '../helpers/operators'
 import { useCalculator } from '../hooks/useCalculator'
 
 function Element({ index, element }) {
-  const { equals, editIndex, setEditing, setEditIndex, setEditReplace, setEditOperator } = useCalculator()
+  const { hasResult, editIndex, editing } = useCalculator()
 
   const handleClick = (e) => {
     e.preventDefault()
-
-    if (equals) {
-      return
-    }
-
-    setEditing(true)
-    setEditIndex(index)
-    setEditReplace(!isOperator(element))
-    setEditOperator(isOperator(element))
+    editing(index, element, false)
   }
 
   return (
@@ -26,8 +17,8 @@ function Element({ index, element }) {
         { 'border-cyan-400': index === editIndex },
         { 'dark:border-cyan-600': index === editIndex },
         { 'border-transparent': index !== editIndex },
-        { 'cursor-default': index === editIndex || equals },
-        { 'cursor-pointer': index !== editIndex && !equals }
+        { 'cursor-default': index === editIndex || hasResult },
+        { 'cursor-pointer': index !== editIndex && !hasResult }
       )}
       onClick={handleClick}
     >

@@ -1,30 +1,51 @@
-import { buttonsEnum, numbersEnum, operatorsEnum } from './enums'
+import {
+  faArrowLeft,
+  faCheck,
+  faDivide,
+  faEquals,
+  faMinus,
+  faPercent,
+  faPlus,
+  faRepeat,
+  faXmark
+} from '@fortawesome/free-solid-svg-icons'
+import { ButtonTypesEnum, LabelsEnum, NumbersEnum, OperatorsEnum } from './enums'
 
 export const standardButtons = [
-  { id: 1, type: buttonsEnum.clean },
-  { id: 2, type: buttonsEnum.backspace },
-  { id: 3, type: buttonsEnum.percent },
-  { id: 17, type: buttonsEnum.calculator },
-  { id: 20, type: buttonsEnum.equals },
-  { id: 13, label: numbersEnum.one, type: buttonsEnum.number },
-  { id: 14, label: numbersEnum.two, type: buttonsEnum.number },
-  { id: 15, label: numbersEnum.three, type: buttonsEnum.number },
-  { id: 9, label: numbersEnum.four, type: buttonsEnum.number },
-  { id: 10, label: numbersEnum.five, type: buttonsEnum.number },
-  { id: 11, label: numbersEnum.six, type: buttonsEnum.number },
-  { id: 5, label: numbersEnum.seven, type: buttonsEnum.number },
-  { id: 6, label: numbersEnum.eight, type: buttonsEnum.number },
-  { id: 7, label: numbersEnum.nine, type: buttonsEnum.number },
-  { id: 18, label: numbersEnum.zero, type: buttonsEnum.number },
-  { id: 19, label: numbersEnum.decimalPoint, type: buttonsEnum.decimalPoint },
-  { id: 4, label: operatorsEnum.divide, type: buttonsEnum.operator },
-  { id: 8, label: operatorsEnum.times, type: buttonsEnum.operator },
-  { id: 12, label: operatorsEnum.minus, type: buttonsEnum.operator },
-  { id: 16, label: operatorsEnum.plus, type: buttonsEnum.operator }
+  { id: 1, type: ButtonTypesEnum.CLEAN },
+  { id: 2, icon: faArrowLeft, type: ButtonTypesEnum.BACKSPACE },
+  { id: 3, icon: faPercent, type: ButtonTypesEnum.PERCENT },
+  { id: 4, label: OperatorsEnum.divide, icon: faDivide, type: ButtonTypesEnum.OPERATOR },
+  { id: 5, label: NumbersEnum.SEVEN, type: ButtonTypesEnum.NUMBER },
+  { id: 6, label: NumbersEnum.EIGHT, type: ButtonTypesEnum.NUMBER },
+  { id: 7, label: NumbersEnum.NINE, type: ButtonTypesEnum.NUMBER },
+  { id: 8, label: OperatorsEnum.TIMES, icon: faXmark, type: ButtonTypesEnum.OPERATOR },
+  { id: 9, label: NumbersEnum.FOUR, type: ButtonTypesEnum.NUMBER },
+  { id: 10, label: NumbersEnum.FIVE, type: ButtonTypesEnum.NUMBER },
+  { id: 11, label: NumbersEnum.SIX, type: ButtonTypesEnum.NUMBER },
+  { id: 12, label: OperatorsEnum.MINUS, icon: faMinus, type: ButtonTypesEnum.OPERATOR },
+  { id: 13, label: NumbersEnum.ONE, type: ButtonTypesEnum.NUMBER },
+  { id: 14, label: NumbersEnum.TWO, type: ButtonTypesEnum.NUMBER },
+  { id: 15, label: NumbersEnum.THREE, type: ButtonTypesEnum.NUMBER },
+  { id: 16, label: OperatorsEnum.PLUS, icon: faPlus, type: ButtonTypesEnum.OPERATOR },
+  { id: 17, icon: faRepeat, type: ButtonTypesEnum.CALCULATOR },
+  { id: 18, label: NumbersEnum.ZERO, type: ButtonTypesEnum.NUMBER },
+  { id: 19, label: LabelsEnum.DECIMAL_POINT, type: ButtonTypesEnum.DECIMAL_POINT },
+  { id: 20, icon: faEquals, type: ButtonTypesEnum.EQUALS },
+  { id: 21, icon: faCheck, type: ButtonTypesEnum.EDITED }
 ]
 
 export const scientificButtons = [
-  { id: 1, label: operatorsEnum.sin, type: buttonsEnum.operation },
-  { id: 2, label: operatorsEnum.cos, type: buttonsEnum.operation },
-  { id: 3, label: operatorsEnum.tan, type: buttonsEnum.operation }
+  { id: 1, type: ButtonTypesEnum.DEGREES },
+  { id: 2, label: OperatorsEnum.SINE, type: ButtonTypesEnum.OPERATOR },
+  { id: 3, label: OperatorsEnum.COSINE, type: ButtonTypesEnum.OPERATOR },
+  { id: 4, label: OperatorsEnum.TANGENT, type: ButtonTypesEnum.OPERATOR },
+  { id: 5, label: OperatorsEnum.LOGARITHM, type: ButtonTypesEnum.OPERATOR },
+  { id: 6, label: OperatorsEnum.NATURAL_LOGARITHM, type: ButtonTypesEnum.OPERATOR },
+  { id: 7, label: OperatorsEnum.LEFT_PARENTHESIS, type: ButtonTypesEnum.OPERATOR },
+  { id: 8, label: OperatorsEnum.RIGHT_PARENTHESIS, type: ButtonTypesEnum.OPERATOR },
+  { id: 9, label: OperatorsEnum.EXPONENTIATION, type: ButtonTypesEnum.OPERATOR },
+  { id: 10, label: OperatorsEnum.SQUARE_ROOT, type: ButtonTypesEnum.OPERATOR },
+  { id: 11, label: OperatorsEnum.FACTORIAL, type: ButtonTypesEnum.OPERATOR },
+  { id: 12, label: OperatorsEnum.PI, type: ButtonTypesEnum.OPERATOR }
 ]

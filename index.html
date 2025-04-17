@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="/vite.svg"
-    />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
-    <title>Calculator with React</title>
-  </head>
-  <body class="bg-zinc-100 dark:bg-zinc-900">
-    <div id="root"></div>
-    <script
-      type="module"
-      src="/src/main.jsx"
-    ></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculator with React</title>
+</head>
+
+<body class="bg-zinc-100 dark:bg-zinc-900">
+  <div id="root"></div>
+  <script>
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  </script>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
 </html>

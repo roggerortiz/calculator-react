@@ -1,13 +1,14 @@
-import { themesEnum } from './enums'
+import { ThemesEnum } from './enums'
 
-export const isDocumentDarkTheme = () => {
-  return window.matchMedia('(prefers-color-scheme: dark)').matches
+export const getDefaultTheme = () => {
+  const isDarkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+  return isDarkTheme ? ThemesEnum.DARK : ThemesEnum.LIGHT
 }
 
 export const setDocumentTheme = (theme) => {
-  if (theme === themesEnum.dark) {
-    document.documentElement.classList.add(themesEnum.dark)
+  if (theme === ThemesEnum.DARK) {
+    document.documentElement.classList.add(ThemesEnum.DARK)
   } else {
-    document.documentElement.classList.remove(themesEnum.dark)
+    document.documentElement.classList.remove(ThemesEnum.DARK)
   }
 }
