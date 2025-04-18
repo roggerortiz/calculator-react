@@ -1,4 +1,4 @@
-import { OperatorsEnum } from '../helpers/enums'
+import { LabelsEnum } from '../helpers/enums'
 import { useCalculator } from '../hooks/useCalculator'
 import Record from './Record'
 
@@ -18,7 +18,7 @@ function Records() {
       {hasResult && (
         <Record
           index={records.length}
-          record={OperatorsEnum.EQUALS}
+          record={LabelsEnum.EQUALS}
         />
       )}
     </div>

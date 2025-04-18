@@ -1,11 +1,9 @@
-import ScientificButtons from './ScientificButtons'
-import StandardButtons from './StandardButtons'
+import Buttons from './Buttons'
 
 function Keyboard() {
   return (
     <div className='flex flex-col gap-1 items-center justify-start h-full overflow-auto light-scrollbars'>
-      <ScientificButtons />
-      <StandardButtons />
+      <Buttons />
     </div>
   )
 }

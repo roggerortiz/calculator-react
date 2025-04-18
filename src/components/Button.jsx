@@ -1,10 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import clsx from 'clsx'
 import PropTypes from 'prop-types'
-import { ButtonsEnum } from '../helpers/enums'
+import { ButtonActionsEnum, ButtonStylesEnum, LabelsEnum } from '../helpers/enums'
 import { useCalculator } from '../hooks/useCalculator'
 
-function Button({ icon, label, type }) {
+function Button({ icon, label, value, style, action }) {
   const {
     cleanLabel,
     degreesLabel,
@@ -22,31 +22,29 @@ function Button({ icon, label, type }) {
     edited
   } = useCalculator()
 
-  const isClean = type === ButtonsEnum.CLEAN
-  const isBackspace = type === ButtonsEnum.BACKSPACE
-  const isPercent = type === ButtonsEnum.PERCENT
-  const isCalculator = type === ButtonsEnum.CALCULATOR
-  const isNumber = type === ButtonsEnum.NUMBER
-  const isEquals = type === ButtonsEnum.EQUALS
-  const isEdited = type === ButtonsEnum.EDITED
-  const isDecimalPoint = type === ButtonsEnum.DECIMAL_POINT
-  const isStandarOperator = type === ButtonsEnum.OPERATOR
-  const isScientificOperator = type === ButtonsEnum.SCIENTIFIC_OPERATOR
-  const isDegrees = type === ButtonsEnum.DEGREES
+  const isDegreesButton = action === ButtonActionsEnum.DEGREES
+  const isCleanButton = action === ButtonActionsEnum.CLEAN
+  const isDecimalPointButton = action === ButtonActionsEnum.DECIMAL_POINT
+  const isNumberButton = action === ButtonActionsEnum.NUMBER
+  const isOperatorButton = action === ButtonActionsEnum.OPERATOR
+  const isEqualsButton = action === ButtonActionsEnum.EQUALS
+  const isEditedButton = action === ButtonActionsEnum.EDITED
+  const isExponentiationButton = value === LabelsEnum.CARET
 
-  const isPrimary = isClean || isBackspace || isPercent || isCalculator || isStandarOperator || isEquals
-  const isSecondary = isNumber || isDecimalPoint || isDegrees || isScientificOperator
+  const isPrimaryStyle = style === ButtonStylesEnum.PRIMARY
+  const isSecondaryStyle = style === ButtonStylesEnum.SECONDARY
+  const isDangerStyle = style === ButtonStylesEnum.DANGER
 
   const isDisabled =
-    (isEditing && isEditingOperator && (isClean || isNumber || isDecimalPoint)) ||
-    (isEditing && !isEditingOperator && (isClean || isStandarOperator))
+    (isEditing && isEditingOperator && (isCleanButton || isNumberButton || isDecimalPointButton)) ||
+    (isEditing && !isEditingOperator && (isCleanButton || isOperatorButton))
 
   const handleFunctions = {
-    calculator: setCalculator,
-    degrees: setDegrees,
-    decimalPoint: setDecimalPoint,
-    number: setNumber,
-    operator: setOperator,
+    setDegrees,
+    setCalculator,
+    setDecimalPoint,
+    setNumber,
+    setOperator,
     clean,
     backspace,
     percent,
@@ -55,15 +53,23 @@ function Button({ icon, label, type }) {
   }
 
   const renderLabel = () => {
-    if (isClean) {
+    if (isCleanButton) {
       return <>{cleanLabel}</>
     }
 
-    if (isDegrees) {
+    if (isDegreesButton) {
       return <>{degreesLabel}</>
     }
 
-    if (label) {
+    if (isExponentiationButton) {
+      return (
+        <>
+          x<sup>y</sup>
+        </>
+      )
+    }
+
+    if (label && !icon) {
       return <>{label}</>
     }
 
@@ -82,12 +88,12 @@ function Button({ icon, label, type }) {
   const handleClick = (event) => {
     event.preventDefault()
 
-    if (!isDisabled && handleFunctions[type]) {
-      handleFunctions[type](label)
+    if (!isDisabled && handleFunctions[action]) {
+      handleFunctions[action](value ? value : label)
     }
   }
 
-  if ((isEditing && isEquals) || (!isEditing && isEdited)) {
+  if ((isEditing && isEqualsButton) || (!isEditing && isEditedButton)) {
     return <></>
   }
 
@@ -97,16 +103,16 @@ function Button({ icon, label, type }) {
         'flex items-center justify-center border rounded h-10 text-base font-semibold',
         { 'opacity-60': isDisabled },
         {
-          'text-white bg-red-500 hover:bg-red-600': isEdited,
-          'dark:text-white dark:bg-red-600 dark:hover:bg-red-500': isEdited
+          'text-white bg-red-500 hover:bg-red-600': isDangerStyle,
+          'dark:text-white dark:bg-red-600 dark:hover:bg-red-500': isDangerStyle
         },
         {
-          'text-white bg-cyan-500 hover:bg-cyan-600': isPrimary,
-          'dark:text-white dark:bg-cyan-700 dark:hover:bg-cyan-600': isPrimary
+          'text-white bg-cyan-500 hover:bg-cyan-600': isPrimaryStyle,
+          'dark:text-white dark:bg-cyan-700 dark:hover:bg-cyan-600': isPrimaryStyle
         },
         {
-          'text-zinc-800 bg-zinc-200 hover:bg-zinc-300': isSecondary,
-          'dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-600': isSecondary
+          'text-zinc-800 bg-zinc-200 hover:bg-zinc-300': isSecondaryStyle,
+          'dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-600': isSecondaryStyle
         }
       )}
       disabled={isDisabled}
@@ -120,7 +126,9 @@ function Button({ icon, label, type }) {
 Button.propTypes = {
   icon: PropTypes.object,
   label: PropTypes.string,
-  type: PropTypes.string.isRequired
+  value: PropTypes.string,
+  style: PropTypes.string.isRequired,
+  action: PropTypes.string.isRequired
 }
 
 export default Button

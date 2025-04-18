@@ -9,43 +9,283 @@ import {
   faRepeat,
   faXmark
 } from '@fortawesome/free-solid-svg-icons'
-import { ButtonsEnum, LabelsEnum, NumbersEnum, OperatorsEnum } from './enums'
+import { ButtonActionsEnum, ButtonStylesEnum, CalculatorsEnum, LabelsEnum } from './enums'
 
-export const standardButtons = [
-  { id: 1, type: ButtonsEnum.CLEAN },
-  { id: 2, icon: faArrowLeft, type: ButtonsEnum.BACKSPACE },
-  { id: 3, icon: faPercent, type: ButtonsEnum.PERCENT },
-  { id: 4, label: OperatorsEnum.divide, icon: faDivide, type: ButtonsEnum.OPERATOR },
-  { id: 5, label: NumbersEnum.SEVEN, type: ButtonsEnum.NUMBER },
-  { id: 6, label: NumbersEnum.EIGHT, type: ButtonsEnum.NUMBER },
-  { id: 7, label: NumbersEnum.NINE, type: ButtonsEnum.NUMBER },
-  { id: 8, label: OperatorsEnum.TIMES, icon: faXmark, type: ButtonsEnum.OPERATOR },
-  { id: 9, label: NumbersEnum.FOUR, type: ButtonsEnum.NUMBER },
-  { id: 10, label: NumbersEnum.FIVE, type: ButtonsEnum.NUMBER },
-  { id: 11, label: NumbersEnum.SIX, type: ButtonsEnum.NUMBER },
-  { id: 12, label: OperatorsEnum.MINUS, icon: faMinus, type: ButtonsEnum.OPERATOR },
-  { id: 13, label: NumbersEnum.ONE, type: ButtonsEnum.NUMBER },
-  { id: 14, label: NumbersEnum.TWO, type: ButtonsEnum.NUMBER },
-  { id: 15, label: NumbersEnum.THREE, type: ButtonsEnum.NUMBER },
-  { id: 16, label: OperatorsEnum.PLUS, icon: faPlus, type: ButtonsEnum.OPERATOR },
-  { id: 17, icon: faRepeat, type: ButtonsEnum.CALCULATOR },
-  { id: 18, label: NumbersEnum.ZERO, type: ButtonsEnum.NUMBER },
-  { id: 19, label: LabelsEnum.DECIMAL_POINT, type: ButtonsEnum.DECIMAL_POINT },
-  { id: 20, icon: faEquals, type: ButtonsEnum.EQUALS },
-  { id: 21, icon: faCheck, type: ButtonsEnum.EDITED }
+const buttons = [
+  {
+    id: 1,
+    order: 13,
+    style: ButtonStylesEnum.PRIMARY,
+    action: ButtonActionsEnum.CLEAN,
+    calculator: CalculatorsEnum.STANDARD
+  },
+  {
+    id: 2,
+    order: 14,
+    icon: faArrowLeft,
+    style: ButtonStylesEnum.PRIMARY,
+    action: ButtonActionsEnum.BACKSPACE,
+    calculator: CalculatorsEnum.STANDARD
+  },
+  {
+    id: 3,
+    order: 15,
+    icon: faPercent,
+    style: ButtonStylesEnum.PRIMARY,
+    action: ButtonActionsEnum.PERCENT,
+    calculator: CalculatorsEnum.STANDARD
+  },
+  {
+    id: 4,
+    order: 16,
+    icon: faDivide,
+    label: LabelsEnum.DIVIDE,
+    style: ButtonStylesEnum.PRIMARY,
+    action: ButtonActionsEnum.OPERATOR,
+    calculator: CalculatorsEnum.STANDARD
+  },
+  {
+    id: 5,
+    order: 20,
+    icon: faXmark,
+    label: LabelsEnum.X_MARK,
+    style: ButtonStylesEnum.PRIMARY,
+    action: ButtonActionsEnum.OPERATOR,
+    calculator: CalculatorsEnum.STANDARD
+  },
+  {
+    id: 6,
+    order: 24,
+    icon: faMinus,
+    label: LabelsEnum.MINUS,
+    style: ButtonStylesEnum.PRIMARY,
+    action: ButtonActionsEnum.OPERATOR,
+    calculator: CalculatorsEnum.STANDARD
+  },
+  {
+    id: 7,
+    order: 28,
+    icon: faPlus,
+    label: LabelsEnum.PLUS,
+    style: ButtonStylesEnum.PRIMARY,
+    action: ButtonActionsEnum.OPERATOR,
+    calculator: CalculatorsEnum.STANDARD
+  },
+  {
+    id: 8,
+    order: 29,
+    icon: faRepeat,
+    style: ButtonStylesEnum.PRIMARY,
+    action: ButtonActionsEnum.CALCULATOR,
+    calculator: CalculatorsEnum.STANDARD
+  },
+  {
+    id: 9,
+    order: 32,
+    icon: faEquals,
+    style: ButtonStylesEnum.PRIMARY,
+    action: ButtonActionsEnum.EQUALS,
+    calculator: CalculatorsEnum.STANDARD
+  },
+  {
+    id: 10,
+    order: 32,
+    icon: faCheck,
+    style: ButtonStylesEnum.DANGER,
+    action: ButtonActionsEnum.EDITED,
+    calculator: CalculatorsEnum.STANDARD
+  },
+  {
+    id: 11,
+    order: 25,
+    label: LabelsEnum.ONE,
+    style: ButtonStylesEnum.SECONDARY,
+    action: ButtonActionsEnum.NUMBER,
+    calculator: CalculatorsEnum.STANDARD
+  },
+  {
+    id: 12,
+    order: 26,
+    label: LabelsEnum.TWO,
+    style: ButtonStylesEnum.SECONDARY,
+    action: ButtonActionsEnum.NUMBER,
+    calculator: CalculatorsEnum.STANDARD
+  },
+  {
+    id: 13,
+    order: 27,
+    label: LabelsEnum.THREE,
+    style: ButtonStylesEnum.SECONDARY,
+    action: ButtonActionsEnum.NUMBER,
+    calculator: CalculatorsEnum.STANDARD
+  },
+  {
+    id: 14,
+    order: 21,
+    label: LabelsEnum.FOUR,
+    style: ButtonStylesEnum.SECONDARY,
+    action: ButtonActionsEnum.NUMBER,
+    calculator: CalculatorsEnum.STANDARD
+  },
+  {
+    id: 15,
+    order: 22,
+    label: LabelsEnum.FIVE,
+    style: ButtonStylesEnum.SECONDARY,
+    action: ButtonActionsEnum.NUMBER,
+    calculator: CalculatorsEnum.STANDARD
+  },
+  {
+    id: 16,
+    order: 23,
+    label: LabelsEnum.SIX,
+    style: ButtonStylesEnum.SECONDARY,
+    action: ButtonActionsEnum.NUMBER,
+    calculator: CalculatorsEnum.STANDARD
+  },
+  {
+    id: 17,
+    order: 17,
+    label: LabelsEnum.SEVEN,
+    style: ButtonStylesEnum.SECONDARY,
+    action: ButtonActionsEnum.NUMBER,
+    calculator: CalculatorsEnum.STANDARD
+  },
+  {
+    id: 18,
+    order: 18,
+    label: LabelsEnum.EIGHT,
+    style: ButtonStylesEnum.SECONDARY,
+    action: ButtonActionsEnum.NUMBER,
+    calculator: CalculatorsEnum.STANDARD
+  },
+  {
+    id: 19,
+    order: 19,
+    label: LabelsEnum.NINE,
+    style: ButtonStylesEnum.SECONDARY,
+    action: ButtonActionsEnum.NUMBER,
+    calculator: CalculatorsEnum.STANDARD
+  },
+  {
+    id: 20,
+    order: 30,
+    label: LabelsEnum.ZERO,
+    style: ButtonStylesEnum.SECONDARY,
+    action: ButtonActionsEnum.NUMBER,
+    calculator: CalculatorsEnum.STANDARD
+  },
+  {
+    id: 21,
+    order: 31,
+    label: LabelsEnum.DECIMAL_POINT,
+    style: ButtonStylesEnum.SECONDARY,
+    action: ButtonActionsEnum.DECIMAL_POINT,
+    calculator: CalculatorsEnum.STANDARD
+  },
+  {
+    id: 22,
+    order: 1,
+    style: ButtonStylesEnum.SECONDARY,
+    action: ButtonActionsEnum.DEGREES,
+    calculator: CalculatorsEnum.SCIENTIFIC
+  },
+  {
+    id: 23,
+    order: 2,
+    label: LabelsEnum.SIN,
+    style: ButtonStylesEnum.SECONDARY,
+    action: ButtonActionsEnum.UNARY_OPERATOR,
+    calculator: CalculatorsEnum.SCIENTIFIC
+  },
+  {
+    id: 24,
+    order: 3,
+    label: LabelsEnum.COS,
+    style: ButtonStylesEnum.SECONDARY,
+    action: ButtonActionsEnum.UNARY_OPERATOR,
+    calculator: CalculatorsEnum.SCIENTIFIC
+  },
+  {
+    id: 25,
+    order: 4,
+    label: LabelsEnum.TAN,
+    style: ButtonStylesEnum.SECONDARY,
+    action: ButtonActionsEnum.UNARY_OPERATOR,
+    calculator: CalculatorsEnum.SCIENTIFIC
+  },
+  {
+    id: 26,
+    order: 5,
+    label: LabelsEnum.LOGARITHM,
+    style: ButtonStylesEnum.SECONDARY,
+    action: ButtonActionsEnum.UNARY_OPERATOR,
+    calculator: CalculatorsEnum.SCIENTIFIC
+  },
+  {
+    id: 27,
+    order: 6,
+    label: LabelsEnum.NATURAL_LOGARITHM,
+    style: ButtonStylesEnum.SECONDARY,
+    action: ButtonActionsEnum.UNARY_OPERATOR,
+    calculator: CalculatorsEnum.SCIENTIFIC
+  },
+  {
+    id: 28,
+    order: 7,
+    label: LabelsEnum.LEFT_PARENTHESIS,
+    style: ButtonStylesEnum.SECONDARY,
+    calculator: CalculatorsEnum.SCIENTIFIC
+  },
+  {
+    id: 29,
+    order: 8,
+    label: LabelsEnum.RIGHT_PARENTHESIS,
+    style: ButtonStylesEnum.SECONDARY,
+    calculator: CalculatorsEnum.SCIENTIFIC
+  },
+  {
+    id: 30,
+    order: 9,
+    value: LabelsEnum.CARET,
+    style: ButtonStylesEnum.SECONDARY,
+    action: ButtonActionsEnum.OPERATOR,
+    calculator: CalculatorsEnum.SCIENTIFIC
+  },
+  {
+    id: 31,
+    order: 10,
+    value: LabelsEnum.RADICAL,
+    label: LabelsEnum.SQUARE_ROOT,
+    style: ButtonStylesEnum.SECONDARY,
+    action: ButtonActionsEnum.UNARY_OPERATOR,
+    calculator: CalculatorsEnum.SCIENTIFIC
+  },
+  {
+    id: 32,
+    order: 11,
+    value: LabelsEnum.EXCLAMATION_POINT,
+    label: LabelsEnum.FACTORIAL,
+    style: ButtonStylesEnum.SECONDARY,
+    action: ButtonActionsEnum.FACTORIAL,
+    calculator: CalculatorsEnum.SCIENTIFIC
+  },
+  {
+    id: 33,
+    order: 12,
+    label: LabelsEnum.PI,
+    style: ButtonStylesEnum.SECONDARY,
+    action: ButtonActionsEnum.CONSTANT,
+    calculator: CalculatorsEnum.SCIENTIFIC
+  }
 ]
 
-export const scientificButtons = [
-  { id: 1, type: ButtonsEnum.DEGREES },
-  { id: 2, label: OperatorsEnum.SINE, type: ButtonsEnum.OPERATOR },
-  { id: 3, label: OperatorsEnum.COSINE, type: ButtonsEnum.OPERATOR },
-  { id: 4, label: OperatorsEnum.TANGENT, type: ButtonsEnum.OPERATOR },
-  { id: 5, label: OperatorsEnum.LOGARITHM, type: ButtonsEnum.OPERATOR },
-  { id: 6, label: OperatorsEnum.NATURAL_LOGARITHM, type: ButtonsEnum.OPERATOR },
-  { id: 7, label: OperatorsEnum.LEFT_PARENTHESIS, type: ButtonsEnum.OPERATOR },
-  { id: 8, label: OperatorsEnum.RIGHT_PARENTHESIS, type: ButtonsEnum.OPERATOR },
-  { id: 9, label: OperatorsEnum.EXPONENTIATION, type: ButtonsEnum.OPERATOR },
-  { id: 10, label: OperatorsEnum.SQUARE_ROOT, type: ButtonsEnum.OPERATOR },
-  { id: 11, label: OperatorsEnum.FACTORIAL, type: ButtonsEnum.OPERATOR },
-  { id: 12, label: OperatorsEnum.PI, type: ButtonsEnum.OPERATOR }
-]
+export const getButtons = (calculator) => {
+  return buttons
+    .filter((button) => {
+      return calculator === CalculatorsEnum.SCIENTIFIC || button.calculator === CalculatorsEnum.STANDARD
+    })
+    .sort((buttonA, buttonB) => {
+      return buttonA.order > buttonB.order ? 1 : -1
+    })
+}

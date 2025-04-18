@@ -1,4 +1,5 @@
-import { CalculatorsEnum, LabelsEnum, NumbersEnum, ThemesEnum } from './enums'
+import { getButtons } from './buttons'
+import { CalculatorsEnum, LabelsEnum, ThemesEnum } from './enums'
 import {
   addElement,
   getLastElement,
@@ -16,9 +17,14 @@ export const toggleTheme = ({ theme }) => ({
   theme: theme === ThemesEnum.LIGHT ? ThemesEnum.DARK : ThemesEnum.LIGHT
 })
 
-export const toggleCalculator = ({ calculator }) => ({
-  calculator: calculator === CalculatorsEnum.STANDARD ? CalculatorsEnum.SCIENTIFIC : CalculatorsEnum.STANDARD
-})
+export const toggleCalculator = ({ calculator }) => {
+  calculator = calculator === CalculatorsEnum.STANDARD ? CalculatorsEnum.SCIENTIFIC : CalculatorsEnum.STANDARD
+
+  return {
+    calculator,
+    buttons: getButtons(calculator)
+  }
+}
 
 export const toggleDegreesLabel = ({ degreesLabel }) => ({
   degreesLabel: degreesLabel === LabelsEnum.DEGREES ? LabelsEnum.RADIANS : LabelsEnum.DEGREES
@@ -32,7 +38,7 @@ export const setDecimalPoint = ({ elements, reCalculate }) => {
   }
 
   if (isOperator(lastElement)) {
-    const newElement = `${NumbersEnum.ZERO}${LabelsEnum.DECIMAL_POINT}`
+    const newElement = `${LabelsEnum.ZERO}${LabelsEnum.DECIMAL_POINT}`
     return addElement(newElement, elements, reCalculate)
   }
 

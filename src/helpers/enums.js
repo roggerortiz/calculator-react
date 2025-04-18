@@ -8,28 +8,11 @@ export const CalculatorsEnum = Object.freeze({
   SCIENTIFIC: 'scientific'
 })
 
-export const ButtonsEnum = Object.freeze({
-  CLEAN: 'clean',
-  BACKSPACE: 'backspace',
-  CALCULATOR: 'calculator',
-  PERCENT: 'percent',
-  EQUALS: 'equals',
-  EDITED: 'edited',
-  NUMBER: 'number',
-  DECIMAL_POINT: 'decimalPoint',
-  OPERATOR: 'operator',
-  DEGREES: 'degrees'
-})
-
 export const LabelsEnum = Object.freeze({
+  DEGREES: 'deg',
+  RADIANS: 'rad',
   CLEAN_C: 'C',
   CLEAN_AC: 'AC',
-  DECIMAL_POINT: '.',
-  DEGREES: 'deg',
-  RADIANS: 'rad'
-})
-
-export const NumbersEnum = Object.freeze({
   ONE: '1',
   TWO: '2',
   THREE: '3',
@@ -39,26 +22,49 @@ export const NumbersEnum = Object.freeze({
   SEVEN: '7',
   EIGHT: '8',
   NINE: '9',
-  ZERO: '0'
-})
-
-export const OperatorsEnum = Object.freeze({
-  PLUS: '+',
-  MINUS: '-',
-  TIMES: 'x',
-  DIVIDE: '÷',
+  ZERO: '0',
+  DECIMAL_POINT: '.',
   EQUALS: '=',
-  ASTERISK: '*',
+  DIVIDE: '÷',
+  X_MARK: 'x',
   SLASH: '/',
-  SINE: 'sin',
-  COSINE: 'cos',
-  TANGENT: 'tan',
+  ASTERISK: '*',
+  MINUS: '-',
+  PLUS: '+',
+  CARET: '^',
+  SIN: 'sin',
+  COS: 'cos',
+  TAN: 'tan',
   LOGARITHM: 'lg',
   NATURAL_LOGARITHM: 'ln',
   LEFT_PARENTHESIS: '(',
   RIGHT_PARENTHESIS: ')',
-  EXPONENTIATION: '^',
-  SQUARE_ROOT: '√',
-  FACTORIAL: '!',
+  SQUARE_ROOT: '√x',
+  RADICAL: '√',
+  FACTORIAL: 'x!',
+  EXCLAMATION_POINT: '!',
   PI: 'π'
+})
+
+export const ButtonStylesEnum = Object.freeze({
+  PRIMARY: 'primary',
+  SECONDARY: 'secondary',
+  DANGER: 'danger'
+})
+
+export const ButtonActionsEnum = Object.freeze({
+  DEGREES: 'setDegrees',
+  CALCULATOR: 'setCalculator',
+  DECIMAL_POINT: 'setDecimalPoint',
+  NUMBER: 'setNumber',
+  OPERATOR: 'setOperator',
+  UNARY_OPERATOR: 'setUnaryOperator',
+  CLEAN: 'clean',
+  BACKSPACE: 'backspace',
+  PERCENT: 'percent',
+  EQUALS: 'equals',
+  EDITED: 'edited',
+  SQUARE_ROOT: 'squareRoot',
+  FACTORIAL: 'factorial',
+  CONSTANT: 'constant'
 })

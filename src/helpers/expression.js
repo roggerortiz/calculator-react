@@ -1,11 +1,17 @@
-import { LabelsEnum, NumbersEnum, OperatorsEnum } from './enums'
+import { LabelsEnum } from './enums'
 
 export const isOperator = (value) => {
-  return Object.values(OperatorsEnum).includes(value)
+  const isDivide = value === LabelsEnum.DIVIDE
+  const isTimes = value === LabelsEnum.X_MARK
+  const isMinus = value === LabelsEnum.MINUS
+  const isPlus = value === LabelsEnum.PLUS
+  const isCaret = value === LabelsEnum.CARET
+
+  return isDivide || isTimes || isMinus || isPlus || isCaret
 }
 
 export const isEmptyElements = (elements) => {
-  return elements.length === 1 && elements[0] === NumbersEnum.ZERO
+  return elements.length === 1 && elements[0] === LabelsEnum.ZERO
 }
 
 export const getLastElement = (elements) => {
@@ -23,7 +29,7 @@ export const updateElements = (elements, reCalculate) => {
 
 export const resetElements = (reCalculate) => {
   return {
-    ...updateElements([NumbersEnum.ZERO], reCalculate),
+    ...updateElements([LabelsEnum.ZERO], reCalculate),
     cleanLabel: LabelsEnum.CLEAN_AC
   }
 }

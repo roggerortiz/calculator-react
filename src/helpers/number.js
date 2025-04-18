@@ -1,16 +1,23 @@
-import { NumbersEnum } from './enums'
-import { addElement, getLastElement, isOperator, updateElements, updateLastElement } from './expression'
+import { LabelsEnum } from './enums'
+import {
+  addElement,
+  getLastElement,
+  isEmptyElements,
+  isOperator,
+  updateElements,
+  updateLastElement
+} from './expression'
 
 export const addNumber = ({ number, isEditing, elements, hasResult, reCalculate }) => {
   if (isEditing) {
     return {}
   }
 
-  if (elements.length === 1 && elements[0] === NumbersEnum.ZERO && number === NumbersEnum.ZERO) {
+  if (isEmptyElements(elements) && number === LabelsEnum.ZERO) {
     return {}
   }
 
-  if (hasResult || !elements.length) {
+  if (hasResult) {
     return updateElements([number], reCalculate)
   }
 
@@ -20,7 +27,7 @@ export const addNumber = ({ number, isEditing, elements, hasResult, reCalculate 
     return addElement(number, elements, reCalculate)
   }
 
-  const newLastElement = `${lastElement !== NumbersEnum.ZERO ? lastElement : ''}${number}`
+  const newLastElement = `${lastElement !== LabelsEnum.ZERO ? lastElement : ''}${number}`
   return updateLastElement(newLastElement, elements, reCalculate)
 }
 
@@ -31,7 +38,7 @@ export const editNumber = ({ number, isEditing, editingIndex, isEditingOperator,
 
   let element = elements[editingIndex]
 
-  if (element === NumbersEnum.ZERO && number === NumbersEnum.ZERO) {
+  if (element === LabelsEnum.ZERO && number === LabelsEnum.ZERO) {
     return {}
   }
 

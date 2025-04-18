@@ -1,5 +1,6 @@
 import { create } from 'zustand'
-import { CalculatorsEnum, LabelsEnum, NumbersEnum } from '../helpers/enums'
+import { getButtons } from '../helpers/buttons'
+import { CalculatorsEnum, LabelsEnum } from '../helpers/enums'
 import {
   backspace,
   calculate,
@@ -19,10 +20,11 @@ import { getDefaultTheme } from '../helpers/theme'
 
 export const useCalculatorStore = create((set) => ({
   theme: getDefaultTheme(),
+  buttons: getButtons(CalculatorsEnum.STANDARD),
   cleanLabel: LabelsEnum.CLEAN_AC,
   degreesLabel: LabelsEnum.DEGREES,
   calculator: CalculatorsEnum.STANDARD,
-  elements: [NumbersEnum.ZERO],
+  elements: [LabelsEnum.ZERO],
   records: [],
   result: '',
   reCalculate: 0,
