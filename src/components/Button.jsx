@@ -20,7 +20,8 @@ function Button({ icon, label, value, style, action }) {
     setOperator,
     equals,
     edited,
-    factorial
+    factorial,
+    constant
   } = useCalculator()
 
   const isDegreesButton = action === ButtonActionsEnum.DEGREES
@@ -51,7 +52,8 @@ function Button({ icon, label, value, style, action }) {
     percent,
     equals,
     edited,
-    factorial
+    factorial,
+    constant
   }
 
   const renderLabel = () => {
@@ -120,7 +122,7 @@ function Button({ icon, label, value, style, action }) {
       disabled={isDisabled}
       onClick={handleClick}
     >
-      {renderLabel()}
+      <span>{renderLabel()}</span>
     </button>
   )
 }

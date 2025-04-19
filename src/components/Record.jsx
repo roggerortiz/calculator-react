@@ -18,7 +18,7 @@ function Record({ index, record }) {
       disabled={isEditing}
       onClick={handleClick}
     >
-      {record}
+      <span>{record}</span>
     </button>
   )
 }

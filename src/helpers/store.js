@@ -80,7 +80,7 @@ export const setEditing = (index, item, isRecord) => {
     const isEditingOperator = isOperator(item)
 
     return {
-      result: '',
+      hasError: false,
       hasResult: false,
       elements: [...records],
       editingIndex: index,
@@ -146,7 +146,8 @@ export const percent = ({ elements, isEditing, isEditingOperator, hasResult, reC
 }
 
 export const equals = ({ result }) => ({
-  elements: [result],
+  elements: !result || result === LabelsEnum.ERROR ? [LabelsEnum.ZERO] : [result],
+  hasError: result === LabelsEnum.ERROR,
   hasResult: true
 })
 
@@ -167,4 +168,15 @@ export const factorial = ({ elements, reCalculate }) => {
   }
 
   return updateLastElement(`${lastElement}!`, elements, reCalculate)
+}
+
+export const constant = ({ elements, reCalculate }) => {
+  const lastElement = getLastElement(elements)
+
+  if (isOperator(lastElement)) {
+    return addElement(LabelsEnum.PI_SYMBOL, elements, reCalculate)
+  }
+
+  const newLastElement = `${lastElement !== LabelsEnum.ZERO ? lastElement : ''}${LabelsEnum.PI_SYMBOL}`
+  return updateLastElement(newLastElement, elements, reCalculate)
 }

@@ -275,7 +275,7 @@ const buttons = [
   {
     id: 33,
     order: 12,
-    label: LabelsEnum.PI,
+    label: LabelsEnum.PI_SYMBOL,
     style: ButtonStylesEnum.SECONDARY,
     action: ButtonActionsEnum.CONSTANT,
     calculator: CalculatorsEnum.SCIENTIFIC

@@ -21,9 +21,10 @@ export const getLastElement = (elements) => {
 export const updateElements = (elements, reCalculate) => {
   return {
     cleanLabel: LabelsEnum.CLEAN_C,
+    reCalculate: reCalculate + 1,
     elements,
-    hasResult: false,
-    reCalculate: reCalculate + 1
+    hasError: false,
+    hasResult: false
   }
 }
 
@@ -45,6 +46,6 @@ export const updateLastElement = (value, elements, reCalculate) => {
 }
 
 export const removeLastElement = (elements, reCalculate) => {
-  const newElements = [...elements].slice(0, -1)
-  return updateElements(newElements, reCalculate)
+  elements = [...elements].slice(0, -1)
+  return updateElements(elements, reCalculate)
 }

@@ -9,6 +9,7 @@ export const CalculatorsEnum = Object.freeze({
 })
 
 export const LabelsEnum = Object.freeze({
+  ERROR: 'Error',
   DEGREES: 'deg',
   RADIANS: 'rad',
   CLEAN_C: 'C',
@@ -43,7 +44,8 @@ export const LabelsEnum = Object.freeze({
   RADICAL: '√',
   FACTORIAL: 'x!',
   EXCLAMATION_POINT: '!',
-  PI: 'π'
+  PI_SYMBOL: 'π',
+  PI_NAME: 'pi'
 })
 
 export const ButtonStylesEnum = Object.freeze({

@@ -9,12 +9,14 @@ export const getResult = (elements) => {
       .join(LabelsEnum.ASTERISK)
       .split(LabelsEnum.DIVIDE)
       .join(LabelsEnum.SLASH)
+      .split(LabelsEnum.PI_SYMBOL)
+      .join(LabelsEnum.PI_NAME)
 
     const mexp = new Mexp()
     const result = mexp.eval(expression).toString()
 
     return result
   } catch {
-    return ''
+    return LabelsEnum.ERROR
   }
 }

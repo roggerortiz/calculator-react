@@ -5,6 +5,7 @@ import {
   backspace,
   calculate,
   clean,
+  constant,
   edited,
   equals,
   factorial,
@@ -27,9 +28,10 @@ export const useCalculatorStore = create((set) => ({
   calculator: CalculatorsEnum.STANDARD,
   elements: [LabelsEnum.ZERO],
   records: [],
-  result: '',
   reCalculate: 0,
+  result: '',
   hasResult: false,
+  hasError: false,
   editingIndex: -1,
   isEditing: false,
   isEditingReplace: false,
@@ -47,5 +49,6 @@ export const useCalculatorStore = create((set) => ({
   percent: () => set(percent),
   equals: () => set(equals),
   edited: () => set(edited),
-  factorial: () => set(factorial)
+  factorial: () => set(factorial),
+  constant: () => set(constant)
 }))

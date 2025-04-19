@@ -15,7 +15,11 @@ function Records() {
         />
       ))}
 
-      {hasResult && <span className='leading-none p-0.5'>{LabelsEnum.EQUALS}</span>}
+      {hasResult && (
+        <div className='leading-none p-0.5'>
+          <span>{LabelsEnum.EQUALS}</span>
+        </div>
+      )}
     </div>
   )
 }
