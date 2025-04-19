@@ -31,7 +31,15 @@ export const addNumber = ({ number, isEditing, elements, hasResult, reCalculate 
   return updateLastElement(newLastElement, elements, reCalculate)
 }
 
-export const editNumber = ({ number, isEditing, editingIndex, isEditingOperator, isEditingReplace, elements }) => {
+export const editNumber = ({
+  number,
+  elements,
+  reCalculate,
+  isEditing,
+  editingIndex,
+  isEditingOperator,
+  isEditingReplace
+}) => {
   if (!isEditing || isEditingOperator) {
     return {}
   }
@@ -42,10 +50,11 @@ export const editNumber = ({ number, isEditing, editingIndex, isEditingOperator,
     return {}
   }
 
-  elements[editingIndex] = `${element !== '0' && !isEditingReplace ? element : ''}${number}`
+  elements[editingIndex] = `${element !== LabelsEnum.ZERO && !isEditingReplace ? element : ''}${number}`
 
   return {
-    ...updateElements(elements),
+    ...updateElements(elements, reCalculate),
+    records: [...elements],
     isEditingReplace: false
   }
 }

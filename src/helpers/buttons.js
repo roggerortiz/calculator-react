@@ -235,6 +235,7 @@ const buttons = [
     order: 7,
     label: LabelsEnum.LEFT_PARENTHESIS,
     style: ButtonStylesEnum.SECONDARY,
+    action: ButtonActionsEnum.LEFT_PARENTHESIS,
     calculator: CalculatorsEnum.SCIENTIFIC
   },
   {
@@ -242,6 +243,7 @@ const buttons = [
     order: 8,
     label: LabelsEnum.RIGHT_PARENTHESIS,
     style: ButtonStylesEnum.SECONDARY,
+    action: ButtonActionsEnum.RIGHT_PARENTHESIS,
     calculator: CalculatorsEnum.SCIENTIFIC
   },
   {

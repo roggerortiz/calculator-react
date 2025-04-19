@@ -19,7 +19,8 @@ function Button({ icon, label, value, style, action }) {
     setNumber,
     setOperator,
     equals,
-    edited
+    edited,
+    factorial
   } = useCalculator()
 
   const isDegreesButton = action === ButtonActionsEnum.DEGREES
@@ -49,7 +50,8 @@ function Button({ icon, label, value, style, action }) {
     backspace,
     percent,
     equals,
-    edited
+    edited,
+    factorial
   }
 
   const renderLabel = () => {

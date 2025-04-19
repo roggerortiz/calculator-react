@@ -7,6 +7,7 @@ import {
   isOperator,
   removeLastElement,
   resetElements,
+  updateElements,
   updateLastElement
 } from './expression'
 import { addNumber, editNumber } from './number'
@@ -49,9 +50,9 @@ export const setDecimalPoint = ({ elements, reCalculate }) => {
 export const setNumber = (number) => {
   return ({ isEditing, editingIndex, isEditingOperator, isEditingReplace, elements, hasResult, reCalculate }) => {
     if (!isEditing) {
-      return addNumber({ number, isEditing, elements, hasResult, reCalculate })
+      return addNumber({ number, elements, reCalculate, hasResult, isEditing })
     } else if (!isEditingOperator) {
-      return editNumber({ number, isEditing, editingIndex, isEditingOperator, isEditingReplace, elements })
+      return editNumber({ number, elements, reCalculate, isEditing, editingIndex, isEditingOperator, isEditingReplace })
     } else {
       return {}
     }
@@ -71,19 +72,21 @@ export const setOperator = (operator) => {
 }
 
 export const setEditing = (index, item, isRecord) => {
-  return ({ hasResult }) => {
+  return ({ hasResult, records }) => {
     if (hasResult && !isRecord) {
       return {}
     }
 
-    const isOperator = isOperator(item)
+    const isEditingOperator = isOperator(item)
 
     return {
+      result: '',
       hasResult: false,
-      isEditing: true,
+      elements: [...records],
       editingIndex: index,
-      isEditingReplace: !isOperator,
-      isEditingOperator: isOperator
+      isEditing: true,
+      isEditingOperator,
+      isEditingReplace: !isEditingOperator
     }
   }
 }
@@ -107,15 +110,20 @@ export const clean = ({ cleanLabel, reCalculate }) => {
   }
 }
 
-export const backspace = ({ hasResult, elements, isEditing, isEditingOperator, reCalculate }) => {
-  if (hasResult || !elements.length || isEmptyElements(elements) || (isEditing && isEditingOperator)) {
+export const backspace = ({ hasResult, elements, editingIndex, isEditing, isEditingOperator, reCalculate }) => {
+  if (hasResult || isEmptyElements(elements) || (isEditing && isEditingOperator)) {
     return {}
+  }
+
+  if (isEditing && !isEditingOperator) {
+    elements[editingIndex] = elements[editingIndex].slice(0, -1)
+    return updateElements(elements, reCalculate)
   }
 
   const lastElement = getLastElement(elements)
   const newLastElement = lastElement.slice(0, -1)
 
-  if (isOperator(lastElement) || (!newLastElement && elements.length)) {
+  if (isOperator(lastElement) || !newLastElement) {
     return removeLastElement(elements, reCalculate)
   }
 
@@ -145,7 +153,18 @@ export const equals = ({ result }) => ({
 export const edited = ({ result }) => ({
   elements: [result],
   hasResult: true,
-  isEditing: false,
   editingIndex: -1,
-  equals: true
+  isEditing: false,
+  isEditingReplace: false,
+  isEditingOperator: false
 })
+
+export const factorial = ({ elements, reCalculate }) => {
+  const lastElement = getLastElement(elements)
+
+  if (isOperator(lastElement)) {
+    return addElement(`${LabelsEnum.ZERO}!`, elements, reCalculate)
+  }
+
+  return updateLastElement(`${lastElement}!`, elements, reCalculate)
+}

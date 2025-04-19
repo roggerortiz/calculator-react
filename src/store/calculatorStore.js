@@ -7,6 +7,7 @@ import {
   clean,
   edited,
   equals,
+  factorial,
   percent,
   setDecimalPoint,
   setEditing,
@@ -45,5 +46,6 @@ export const useCalculatorStore = create((set) => ({
   backspace: () => set(backspace),
   percent: () => set(percent),
   equals: () => set(equals),
-  edited: () => set(edited)
+  edited: () => set(edited),
+  factorial: () => set(factorial)
 }))

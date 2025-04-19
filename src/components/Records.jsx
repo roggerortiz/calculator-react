@@ -6,7 +6,7 @@ function Records() {
   const { hasResult, records } = useCalculator()
 
   return (
-    <div className='flex justify-end items-center whitespace-nowrap overflow-hidden w-full text-sm leading-none min-h-[22px]'>
+    <div className='flex gap-0.5 justify-end items-center whitespace-nowrap overflow-hidden w-full text-sm leading-none min-h-[22px]'>
       {records.map((record, index) => (
         <Record
           key={index}
@@ -15,12 +15,7 @@ function Records() {
         />
       ))}
 
-      {hasResult && (
-        <Record
-          index={records.length}
-          record={LabelsEnum.EQUALS}
-        />
-      )}
+      {hasResult && <span className='leading-none p-0.5'>{LabelsEnum.EQUALS}</span>}
     </div>
   )
 }
