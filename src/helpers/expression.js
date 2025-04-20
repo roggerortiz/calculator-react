@@ -10,6 +10,14 @@ export const isOperator = (value) => {
   return isDivide || isTimes || isMinus || isPlus || isCaret
 }
 
+export const isTrigonometricOperator = (value) => {
+  const isSine = value === LabelsEnum.SINE
+  const isCosine = value === LabelsEnum.COSINE
+  const isTangent = value === LabelsEnum.TANGENT
+
+  return isSine || isCosine || isTangent
+}
+
 export const isEmptyElements = (elements) => {
   return elements.length === 1 && elements[0] === LabelsEnum.ZERO
 }
@@ -47,5 +55,10 @@ export const updateLastElement = (value, elements, reCalculate) => {
 
 export const removeLastElement = (elements, reCalculate) => {
   elements = [...elements].slice(0, -1)
+
+  if (!elements.length) {
+    return resetElements(reCalculate)
+  }
+
   return updateElements(elements, reCalculate)
 }

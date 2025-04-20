@@ -193,7 +193,7 @@ const buttons = [
   {
     id: 23,
     order: 2,
-    label: LabelsEnum.SIN,
+    label: LabelsEnum.SINE,
     style: ButtonStylesEnum.SECONDARY,
     action: ButtonActionsEnum.UNARY_OPERATOR,
     calculator: CalculatorsEnum.SCIENTIFIC
@@ -201,7 +201,7 @@ const buttons = [
   {
     id: 24,
     order: 3,
-    label: LabelsEnum.COS,
+    label: LabelsEnum.COSINE,
     style: ButtonStylesEnum.SECONDARY,
     action: ButtonActionsEnum.UNARY_OPERATOR,
     calculator: CalculatorsEnum.SCIENTIFIC
@@ -209,7 +209,7 @@ const buttons = [
   {
     id: 25,
     order: 4,
-    label: LabelsEnum.TAN,
+    label: LabelsEnum.TANGENT,
     style: ButtonStylesEnum.SECONDARY,
     action: ButtonActionsEnum.UNARY_OPERATOR,
     calculator: CalculatorsEnum.SCIENTIFIC

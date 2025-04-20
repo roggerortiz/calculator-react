@@ -27,8 +27,11 @@ export const addNumber = ({ number, isEditing, elements, hasResult, reCalculate 
     return addElement(number, elements, reCalculate)
   }
 
-  const newLastElement = `${lastElement !== LabelsEnum.ZERO ? lastElement : ''}${number}`
-  return updateLastElement(newLastElement, elements, reCalculate)
+  if (isEmptyElements(elements)) {
+    return updateLastElement(number, elements, reCalculate)
+  }
+
+  return updateLastElement(`${lastElement}${number}`, elements, reCalculate)
 }
 
 export const editNumber = ({

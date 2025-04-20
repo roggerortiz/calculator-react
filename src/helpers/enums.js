@@ -10,6 +10,7 @@ export const CalculatorsEnum = Object.freeze({
 
 export const LabelsEnum = Object.freeze({
   ERROR: 'Error',
+  INFINITY: 'Infinity',
   DEGREES: 'deg',
   RADIANS: 'rad',
   CLEAN_C: 'C',
@@ -33,19 +34,29 @@ export const LabelsEnum = Object.freeze({
   MINUS: '-',
   PLUS: '+',
   CARET: '^',
-  SIN: 'sin',
-  COS: 'cos',
-  TAN: 'tan',
+  SINE: 'sin',
+  COSINE: 'cos',
+  TANGENT: 'tan',
   LOGARITHM: 'lg',
   NATURAL_LOGARITHM: 'ln',
   LEFT_PARENTHESIS: '(',
   RIGHT_PARENTHESIS: ')',
+  SQUARE_ROOT_NAME: 'root',
   SQUARE_ROOT: '√x',
   RADICAL: '√',
   FACTORIAL: 'x!',
   EXCLAMATION_POINT: '!',
   PI_SYMBOL: 'π',
   PI_NAME: 'pi'
+})
+
+export const UnaryOperatorKeys = Object.freeze({
+  SINE: 's',
+  COSINE: 'c',
+  TANGENT: 't',
+  LOGARITHM: 'g',
+  NATURAL_LOGARITHM: 'n',
+  SQUARE_ROOT: '√'
 })
 
 export const ButtonStylesEnum = Object.freeze({
@@ -58,17 +69,16 @@ export const ButtonActionsEnum = Object.freeze({
   DEGREES: 'setDegrees',
   CALCULATOR: 'setCalculator',
   DECIMAL_POINT: 'setDecimalPoint',
+  LEFT_PARENTHESIS: 'setLeftParenthesis',
+  RIGHT_PARENTHESIS: 'setRightParenthesis',
   NUMBER: 'setNumber',
   OPERATOR: 'setOperator',
+  UNARY_OPERATOR: 'setUnaryOperator',
+  FACTORIAL: 'setFactorial',
+  CONSTANT: 'setConstant',
   CLEAN: 'clean',
   BACKSPACE: 'backspace',
   PERCENT: 'percent',
   EQUALS: 'equals',
-  EDITED: 'edited',
-  LEFT_PARENTHESIS: 'setLeftParenthesis',
-  RIGHT_PARENTHESIS: 'setRightParenthesis',
-  UNARY_OPERATOR: 'setUnaryOperator',
-  SQUARE_ROOT: 'squareRoot',
-  FACTORIAL: 'factorial',
-  CONSTANT: 'constant'
+  EDITED: 'edited'
 })
