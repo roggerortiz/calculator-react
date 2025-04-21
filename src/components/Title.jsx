@@ -4,14 +4,16 @@ import { CalculatorsEnum } from '../helpers/enums'
 import { useCalculator } from '../hooks/useCalculator'
 
 function Title() {
-  const { calculator } = useCalculator()
+  const { standard } = useCalculator()
 
   return (
     <h1 className='flex items-center gap-1 px-2 py-1 leading-none'>
       <span className='w-4 h-4'>
-        <FontAwesomeIcon icon={calculator === CalculatorsEnum.STANDARD ? faCalculator : faFlask} />
+        <FontAwesomeIcon icon={standard ? faCalculator : faFlask} />
       </span>
-      <span className='capitalize'>{calculator} Calculator</span>
+      <span className='capitalize font-semibold'>
+        {standard ? CalculatorsEnum.STANDARD : CalculatorsEnum.SCIENTIFIC} Calculator
+      </span>
     </h1>
   )
 }

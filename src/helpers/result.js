@@ -1,16 +1,16 @@
 import Mexp from 'math-expression-evaluator'
 import { LabelsEnum } from './enums'
 import { isEmptyElements } from './expression'
-import { verifyUnaryOperators } from './utils'
+import { fixUnaryOperators } from './utils'
 
-export const getResult = (elements) => {
+export const getResult = (elements, degrees) => {
   try {
     if (!elements.length || isEmptyElements(elements)) {
       return ''
     }
 
     const expression = elements
-      .map(verifyUnaryOperators)
+      .map(fixUnaryOperators(degrees))
       .join('')
       .split(LabelsEnum.X_MARK)
       .join(LabelsEnum.ASTERISK)
@@ -20,6 +20,7 @@ export const getResult = (elements) => {
       .join(LabelsEnum.LOGARITHM_NAME)
       .split(LabelsEnum.PI_SYMBOL)
       .join(LabelsEnum.PI_NAME)
+    console.log({ expression })
 
     const mexp = new Mexp()
     const result = mexp.eval(expression).toString()

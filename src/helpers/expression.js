@@ -11,7 +11,7 @@ export const getLastElement = (elements) => {
 
 export const updateElements = (elements, reCalculate) => {
   return {
-    cleanLabel: LabelsEnum.CLEAN_C,
+    allClear: false,
     reCalculate: reCalculate + 1,
     elements,
     hasError: false,
@@ -22,7 +22,7 @@ export const updateElements = (elements, reCalculate) => {
 export const resetElements = (reCalculate) => {
   return {
     ...updateElements([LabelsEnum.ZERO], reCalculate),
-    cleanLabel: LabelsEnum.CLEAN_AC
+    allClear: true
   }
 }
 

@@ -1,5 +1,5 @@
 import { getButtons } from './buttons'
-import { CalculatorsEnum, LabelsEnum, ThemesEnum } from './enums'
+import { LabelsEnum, ThemesEnum } from './enums'
 import {
   editElement,
   getLastElement,
@@ -20,23 +20,23 @@ export const toggleTheme = ({ theme }) => ({
   theme: theme === ThemesEnum.LIGHT ? ThemesEnum.DARK : ThemesEnum.LIGHT
 })
 
-export const toggleCalculator = ({ calculator, editionIndex }) => ({
-  calculator: calculator === CalculatorsEnum.STANDARD ? CalculatorsEnum.SCIENTIFIC : CalculatorsEnum.STANDARD,
-  buttons: getButtons(calculator, editionIndex)
+export const toggleCalculator = ({ standard }) => ({
+  standard: !standard,
+  buttons: getButtons(!standard)
 })
 
-export const toggleDegreesLabel = ({ degreesLabel }) => ({
-  degreesLabel: degreesLabel === LabelsEnum.DEGREES ? LabelsEnum.RADIANS : LabelsEnum.DEGREES
+export const toggleDegreesLabel = ({ degrees }) => ({
+  degrees: !degrees
 })
 
 export const setEdition = (index, isRecord) => {
-  return ({ calculator, records, hasResult, editionIndex }) => {
+  return ({ standard, records, hasResult, editionIndex }) => {
     if ((hasResult && !isRecord) || (isEdition(editionIndex) && isRecord)) {
       return {}
     }
 
     return {
-      buttons: getButtons(calculator, index),
+      buttons: getButtons(standard),
       hasError: false,
       hasResult: false,
       elements: [...records],
@@ -45,7 +45,7 @@ export const setEdition = (index, isRecord) => {
   }
 }
 
-export const calculate = ({ elements, hasResult }) => {
+export const calculate = ({ degrees, elements, hasResult }) => {
   if (hasResult) {
     return {}
   }
@@ -58,16 +58,16 @@ export const calculate = ({ elements, hasResult }) => {
 
   return {
     records: [...elements],
-    result: getResult(elements)
+    result: getResult(elements, degrees)
   }
 }
 
-export const clean = ({ cleanLabel, reCalculate }) => {
-  if (cleanLabel === LabelsEnum.CLEAN_C) {
+export const clear = ({ allClear, reCalculate }) => {
+  if (!allClear) {
     return resetElements(reCalculate)
   }
 
-  if (cleanLabel === LabelsEnum.CLEAN_AC) {
+  if (allClear) {
     return { records: [] }
   }
 
@@ -117,8 +117,8 @@ export const equals = ({ result }) => {
   }
 }
 
-export const edited = ({ calculator, result }) => ({
-  buttons: getButtons(calculator),
+export const edited = ({ standard, result }) => ({
+  buttons: getButtons(standard),
   elements: [result],
   hasResult: true,
   editionIndex: -1

@@ -3,30 +3,35 @@ import clsx from 'clsx'
 import PropTypes from 'prop-types'
 import { buttonColors, isDisabledButton } from '../helpers/buttons'
 import { ButtonActionsEnum, LabelsEnum } from '../helpers/enums'
+import { isEdition } from '../helpers/expression'
 import { useCalculator } from '../hooks/useCalculator'
 
 function Button({ icon, label, value, style, action }) {
   const {
-    cleanLabel,
-    degreesLabel,
+    degrees,
+    allClear,
     editionIndex,
     setCalculator,
     setDegrees,
     setElement,
-    clean,
+    clear,
     backspace,
     percent,
     equals,
     edited
   } = useCalculator()
 
+  const isEquals = action === ButtonActionsEnum.EQUALS
+  const isEdited = action === ButtonActionsEnum.EDITED
+
+  const isEditing = isEdition(editionIndex)
   const isDisabled = isDisabledButton(label, action, editionIndex)
 
   const handleFunctions = {
     setCalculator,
     setDegrees,
     setElement,
-    clean,
+    clear,
     backspace,
     percent,
     equals,
@@ -34,12 +39,12 @@ function Button({ icon, label, value, style, action }) {
   }
 
   const renderLabel = () => {
-    if (action === ButtonActionsEnum.CLEAN) {
-      return <>{cleanLabel}</>
+    if (action === ButtonActionsEnum.CLEAR) {
+      return <>{allClear ? LabelsEnum.ALL_CLEAR : LabelsEnum.CLEAR}</>
     }
 
     if (action === ButtonActionsEnum.DEGREES) {
-      return <>{degreesLabel}</>
+      return <>{degrees ? LabelsEnum.DEGREES : LabelsEnum.RADIANS}</>
     }
 
     if (value === LabelsEnum.CARET) {
@@ -72,6 +77,10 @@ function Button({ icon, label, value, style, action }) {
     if (!isDisabled && handleFunctions[action]) {
       handleFunctions[action](value ? value : label)
     }
+  }
+
+  if ((isEquals && isEditing) || (isEdited && !isEditing)) {
+    return <></>
   }
 
   return (

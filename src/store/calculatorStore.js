@@ -1,10 +1,10 @@
 import { create } from 'zustand'
 import { getButtons } from '../helpers/buttons'
-import { CalculatorsEnum, LabelsEnum } from '../helpers/enums'
+import { LabelsEnum } from '../helpers/enums'
 import {
   backspace,
   calculate,
-  clean,
+  clear,
   edited,
   equals,
   percent,
@@ -18,10 +18,10 @@ import { getDefaultTheme } from '../helpers/theme'
 
 export const useCalculatorStore = create((set) => ({
   theme: getDefaultTheme(),
-  buttons: getButtons(CalculatorsEnum.STANDARD),
-  cleanLabel: LabelsEnum.CLEAN_AC,
-  degreesLabel: LabelsEnum.DEGREES,
-  calculator: CalculatorsEnum.STANDARD,
+  buttons: getButtons(true),
+  standard: true,
+  allClear: true,
+  degrees: true,
   elements: [LabelsEnum.ZERO],
   records: [],
   reCalculate: 0,
@@ -35,7 +35,7 @@ export const useCalculatorStore = create((set) => ({
   setElement: (label) => set(setElement(label)),
   setEdition: (index, isRecord) => set(setEdition(index, isRecord)),
   calculate: () => set(calculate),
-  clean: () => set(clean),
+  clear: () => set(clear),
   backspace: () => set(backspace),
   percent: () => set(percent),
   equals: () => set(equals),

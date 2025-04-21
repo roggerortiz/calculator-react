@@ -24,10 +24,16 @@ export const isOperator = (value) => {
   return isDivide || isTimes || isMinus || isPlus || isCaret
 }
 
-export const isTrigonometricOperator = (value) => {
-  const isSine = value === LabelsEnum.SINE
-  const isCosine = value === LabelsEnum.COSINE
-  const isTangent = value === LabelsEnum.TANGENT
+const convertToDegrees = (items, element, index, degrees) => {
+  const isTrigonometric = isTrigonometricOperatorKey(items[index + 1])
+  const convert = !degrees && index < items.length - 1 && isTrigonometric
+  return convert ? `(${element}*180)/${LabelsEnum.PI_NAME}` : element
+}
+
+export const isTrigonometricOperatorKey = (value) => {
+  const isSine = value === UnaryOperatorKeys.SINE
+  const isCosine = value === UnaryOperatorKeys.COSINE
+  const isTangent = value === UnaryOperatorKeys.TANGENT
 
   return isSine || isCosine || isTangent
 }
@@ -66,22 +72,20 @@ const resetUnaryOperators = (element) => {
     .join(LabelsEnum.SQUARE_ROOT_NAME)
 }
 
-const fixUnaryOperators = (element, number) => {
+const updateUnaryOperators = (element, number, degrees) => {
   if (isNumber(element)) {
     return `(${number})`
   }
 
-  let fixedElement = `(${number})`
+  let newElement = ''
+  const chars = element.replace(number, '').split('').reverse()
+  const items = [number, ...chars]
 
-  element
-    .replace(number, '')
-    .split('')
-    .reverse()
-    .forEach((char) => {
-      fixedElement = `(${char}${fixedElement})`
-    })
+  items.forEach((item, index) => {
+    newElement = `(${convertToDegrees(items, `${item}${newElement}`, index, degrees)})`
+  })
 
-  return fixedElement
+  return newElement
 }
 
 const hasUnaryOperators = (element) => {
@@ -95,34 +99,36 @@ const hasUnaryOperators = (element) => {
   )
 }
 
-export const verifyUnaryOperators = (element) => {
-  if (!hasUnaryOperators(element)) {
-    return element
+export const fixUnaryOperators = (degrees) => {
+  return (element) => {
+    if (!hasUnaryOperators(element)) {
+      return element
+    }
+
+    let elements = []
+    let tempElement = ''
+    let lastElement = ''
+    let number = ''
+
+    setUnaryOperatorKeys(element)
+      .split('')
+      .forEach((char) => {
+        if (isNumber(lastElement) && isUnaryOperatorKey(char)) {
+          elements.push(updateUnaryOperators(tempElement, number, degrees))
+          tempElement = ''
+          lastElement = ''
+          number = ''
+        }
+
+        if (isNumber(char)) {
+          number += char
+        }
+
+        tempElement += char
+        lastElement = char
+      })
+
+    elements.push(updateUnaryOperators(tempElement, number, degrees))
+    return resetUnaryOperators(elements.join(''))
   }
-
-  let elements = []
-  let tempElement = ''
-  let lastElement = ''
-  let number = ''
-
-  setUnaryOperatorKeys(element)
-    .split('')
-    .forEach((char) => {
-      if (isNumber(lastElement) && isUnaryOperatorKey(char)) {
-        elements.push(fixUnaryOperators(tempElement, number))
-        tempElement = ''
-        lastElement = ''
-        number = ''
-      }
-
-      if (isNumber(char)) {
-        number += char
-      }
-
-      tempElement += char
-      lastElement = char
-    })
-
-  elements.push(fixUnaryOperators(tempElement, number))
-  return resetUnaryOperators(elements.join(''))
 }
