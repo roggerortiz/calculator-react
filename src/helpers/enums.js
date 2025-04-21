@@ -38,9 +38,10 @@ export const LabelsEnum = Object.freeze({
   COSINE: 'cos',
   TANGENT: 'tan',
   LOGARITHM: 'lg',
+  LOGARITHM_NAME: 'log',
   NATURAL_LOGARITHM: 'ln',
-  LEFT_PARENTHESIS: '(',
-  RIGHT_PARENTHESIS: ')',
+  LEFT_PARENTHESES: '(',
+  RIGHT_PARENTHESES: ')',
   SQUARE_ROOT_NAME: 'root',
   SQUARE_ROOT: '√x',
   RADICAL: '√',
@@ -51,11 +52,11 @@ export const LabelsEnum = Object.freeze({
 })
 
 export const UnaryOperatorKeys = Object.freeze({
-  SINE: 's',
-  COSINE: 'c',
-  TANGENT: 't',
-  LOGARITHM: 'g',
-  NATURAL_LOGARITHM: 'n',
+  SINE: 'x',
+  COSINE: 'y',
+  TANGENT: 'z',
+  LOGARITHM: 'a',
+  NATURAL_LOGARITHM: 'b',
   SQUARE_ROOT: '√'
 })
 
@@ -68,14 +69,7 @@ export const ButtonStylesEnum = Object.freeze({
 export const ButtonActionsEnum = Object.freeze({
   DEGREES: 'setDegrees',
   CALCULATOR: 'setCalculator',
-  DECIMAL_POINT: 'setDecimalPoint',
-  LEFT_PARENTHESIS: 'setLeftParenthesis',
-  RIGHT_PARENTHESIS: 'setRightParenthesis',
-  NUMBER: 'setNumber',
-  OPERATOR: 'setOperator',
-  UNARY_OPERATOR: 'setUnaryOperator',
-  FACTORIAL: 'setFactorial',
-  CONSTANT: 'setConstant',
+  ELEMENT: 'setElement',
   CLEAN: 'clean',
   BACKSPACE: 'backspace',
   PERCENT: 'percent',

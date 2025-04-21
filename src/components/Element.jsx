@@ -1,23 +1,25 @@
 import clsx from 'clsx'
 import PropTypes from 'prop-types'
+import { isElementEditionByIndex } from '../helpers/expression'
 import { useCalculator } from '../hooks/useCalculator'
 
 function Element({ index, element }) {
-  const { editingIndex, isEditing, setEditing } = useCalculator()
-  const isEditingElement = index === editingIndex && isEditing
+  const { hasResult, editionIndex, setEdition } = useCalculator()
+  const isElementEdition = isElementEditionByIndex(index, editionIndex)
 
   const handleClick = (e) => {
     e.preventDefault()
-    setEditing(index, element, false)
+    setEdition(index, false)
   }
 
   return (
     <button
       className={clsx(
         'border-2 leading-none p-0.5',
-        { 'border-transparent': !isEditingElement },
-        { 'rounded border-cyan-400 dark:border-cyan-600': isEditingElement }
+        { 'border-transparent': !isElementEdition },
+        { 'rounded border-cyan-400 dark:border-cyan-600': isElementEdition }
       )}
+      disabled={hasResult}
       onClick={handleClick}
     >
       <span>{element}</span>

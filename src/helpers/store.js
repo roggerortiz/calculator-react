@@ -1,134 +1,48 @@
 import { getButtons } from './buttons'
 import { CalculatorsEnum, LabelsEnum, ThemesEnum } from './enums'
 import {
-  addElement,
+  editElement,
   getLastElement,
+  isEdition,
   isEmptyElements,
-  isOperator,
+  isNumberEdition,
+  isOperatorEdition,
   removeLastElement,
   resetElements,
+  setLastElement,
   updateElements,
   updateLastElement
 } from './expression'
-import { addNumber, editNumber } from './number'
-import { addOperator, editOperator } from './operator'
-import { getResult } from './utils'
+import { getResult } from './result'
+import { isOperator } from './utils'
 
 export const toggleTheme = ({ theme }) => ({
   theme: theme === ThemesEnum.LIGHT ? ThemesEnum.DARK : ThemesEnum.LIGHT
 })
 
-export const toggleCalculator = ({ calculator }) => {
-  calculator = calculator === CalculatorsEnum.STANDARD ? CalculatorsEnum.SCIENTIFIC : CalculatorsEnum.STANDARD
-
-  return {
-    calculator,
-    buttons: getButtons(calculator)
-  }
-}
+export const toggleCalculator = ({ calculator, editionIndex }) => ({
+  calculator: calculator === CalculatorsEnum.STANDARD ? CalculatorsEnum.SCIENTIFIC : CalculatorsEnum.STANDARD,
+  buttons: getButtons(calculator, editionIndex)
+})
 
 export const toggleDegreesLabel = ({ degreesLabel }) => ({
   degreesLabel: degreesLabel === LabelsEnum.DEGREES ? LabelsEnum.RADIANS : LabelsEnum.DEGREES
 })
 
-export const setDecimalPoint = ({ elements, reCalculate }) => {
-  const lastElement = getLastElement(elements)
-
-  if (lastElement.includes(LabelsEnum.DECIMAL_POINT)) {
-    return {}
-  }
-
-  if (isOperator(lastElement)) {
-    const newElement = `${LabelsEnum.ZERO}${LabelsEnum.DECIMAL_POINT}`
-    return addElement(newElement, elements, reCalculate)
-  }
-
-  const newElement = `${lastElement}${LabelsEnum.DECIMAL_POINT}`
-  return updateLastElement(newElement, elements, reCalculate)
-}
-
-export const setNumber = (number) => {
-  return ({ isEditing, editingIndex, isEditingOperator, isEditingReplace, elements, hasResult, reCalculate }) => {
-    if (!isEditing) {
-      return addNumber({ number, elements, reCalculate, hasResult, isEditing })
-    } else if (!isEditingOperator) {
-      return editNumber({ number, elements, reCalculate, isEditing, editingIndex, isEditingOperator, isEditingReplace })
-    } else {
+export const setEdition = (index, isRecord) => {
+  return ({ calculator, records, hasResult, editionIndex }) => {
+    if ((hasResult && !isRecord) || (isEdition(editionIndex) && isRecord)) {
       return {}
     }
-  }
-}
-
-export const setOperator = (operator) => {
-  return ({ elements, isEditing, editingIndex, isEditingOperator, reCalculate }) => {
-    if (!isEditing) {
-      return addOperator({ operator, elements, isEditing, reCalculate })
-    } else if (isEditingOperator) {
-      return editOperator({ operator, elements, isEditing, editingIndex, isEditingOperator, reCalculate })
-    } else {
-      return {}
-    }
-  }
-}
-
-export const setEditing = (index, item, isRecord) => {
-  return ({ hasResult, records }) => {
-    if (hasResult && !isRecord) {
-      return {}
-    }
-
-    const isEditingOperator = isOperator(item)
 
     return {
+      buttons: getButtons(calculator, index),
       hasError: false,
       hasResult: false,
       elements: [...records],
-      editingIndex: index,
-      isEditing: true,
-      isEditingOperator,
-      isEditingReplace: !isEditingOperator
+      editionIndex: index
     }
   }
-}
-
-export const setUnaryOperator = (operator) => {
-  return ({ elements, reCalculate }) => {
-    const lastElement = getLastElement(elements)
-
-    if (isOperator(lastElement)) {
-      return addElement(operator, elements, reCalculate)
-    }
-
-    if (isEmptyElements(elements)) {
-      return updateLastElement(operator, elements, reCalculate)
-    }
-
-    return updateLastElement(`${lastElement}${operator}`, elements, reCalculate)
-  }
-}
-
-export const setFactorial = ({ elements, reCalculate }) => {
-  const lastElement = getLastElement(elements)
-
-  if (isOperator(lastElement)) {
-    return addElement(`${LabelsEnum.ZERO}!`, elements, reCalculate)
-  }
-
-  return updateLastElement(`${lastElement}!`, elements, reCalculate)
-}
-
-export const setConstant = ({ elements, reCalculate }) => {
-  const lastElement = getLastElement(elements)
-
-  if (isOperator(lastElement)) {
-    return addElement(LabelsEnum.PI_SYMBOL, elements, reCalculate)
-  }
-
-  if (isEmptyElements(elements)) {
-    return updateLastElement(LabelsEnum.PI_SYMBOL, elements, reCalculate)
-  }
-
-  return updateLastElement(`${lastElement}${LabelsEnum.PI_SYMBOL}`, elements, reCalculate)
 }
 
 export const calculate = ({ elements, hasResult }) => {
@@ -151,18 +65,25 @@ export const calculate = ({ elements, hasResult }) => {
 export const clean = ({ cleanLabel, reCalculate }) => {
   if (cleanLabel === LabelsEnum.CLEAN_C) {
     return resetElements(reCalculate)
-  } else if (cleanLabel === LabelsEnum.CLEAN_AC) {
+  }
+
+  if (cleanLabel === LabelsEnum.CLEAN_AC) {
     return { records: [] }
   }
+
+  return {}
 }
 
-export const backspace = ({ hasResult, elements, editingIndex, isEditing, isEditingOperator, reCalculate }) => {
-  if (hasResult || isEmptyElements(elements) || (isEditing && isEditingOperator)) {
+export const backspace = ({ elements, reCalculate, hasResult, editionIndex }) => {
+  if (hasResult || isEmptyElements(elements) || isOperatorEdition(editionIndex)) {
     return {}
   }
 
-  if (isEditing && !isEditingOperator) {
-    elements[editingIndex] = elements[editingIndex].slice(0, -1)
+  if (isNumberEdition(editionIndex)) {
+    const element = elements[editionIndex]
+    const newElement = element.slice(0, -1)
+
+    elements[editionIndex] = newElement || LabelsEnum.ZERO
     return updateElements(elements, reCalculate)
   }
 
@@ -173,22 +94,17 @@ export const backspace = ({ hasResult, elements, editingIndex, isEditing, isEdit
     return removeLastElement(elements, reCalculate)
   }
 
-  if (!newLastElement && elements.length === 1) {
-    return resetElements(reCalculate)
-  }
-
   return updateLastElement(newLastElement, elements, reCalculate)
 }
 
-export const percent = ({ elements, isEditing, isEditingOperator, hasResult, reCalculate }) => {
-  if (hasResult || (isEditing && isEditingOperator)) {
-    return
+export const percent = ({ elements, reCalculate, hasResult, editionIndex }) => {
+  const lastElement = Number(getLastElement(elements))
+
+  if (hasResult || isNaN(lastElement) || isOperatorEdition(editionIndex)) {
+    return {}
   }
 
-  const lastElement = Number(getLastElement(elements))
-  const newLastElement = lastElement ? lastElement / 100 : 0
-
-  return updateLastElement(newLastElement, elements, reCalculate)
+  return updateLastElement((lastElement / 100).toString, elements, reCalculate)
 }
 
 export const equals = ({ result }) => {
@@ -201,11 +117,19 @@ export const equals = ({ result }) => {
   }
 }
 
-export const edited = ({ result }) => ({
+export const edited = ({ calculator, result }) => ({
+  buttons: getButtons(calculator),
   elements: [result],
   hasResult: true,
-  editingIndex: -1,
-  isEditing: false,
-  isEditingReplace: false,
-  isEditingOperator: false
+  editionIndex: -1
 })
+
+export const setElement = (label) => {
+  return ({ elements, reCalculate, hasResult, editionIndex }) => {
+    if (isEdition(editionIndex)) {
+      return editElement(label, elements, reCalculate, editionIndex)
+    }
+
+    return setLastElement(label, elements, reCalculate, hasResult)
+  }
+}
