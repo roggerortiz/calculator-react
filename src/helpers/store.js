@@ -13,6 +13,7 @@ import {
   updateElements,
   updateLastElement
 } from './expression'
+import { checkFunctions } from './function'
 import { getResult } from './result'
 import { isOperator } from './utils'
 
@@ -107,10 +108,11 @@ export const percent = ({ elements, reCalculate, hasResult, editionIndex }) => {
   return updateLastElement((lastElement / 100).toString, elements, reCalculate)
 }
 
-export const equals = ({ result }) => {
+export const equals = ({ records, result }) => {
   const hasError = !result || result === LabelsEnum.ERROR || result === LabelsEnum.INFINITY
 
   return {
+    records: records.map(checkFunctions(true)),
     elements: hasError ? [LabelsEnum.ZERO] : [result],
     hasResult: true,
     hasError

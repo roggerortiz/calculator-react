@@ -37,8 +37,7 @@ export const LabelsEnum = Object.freeze({
   SINE: 'sin',
   COSINE: 'cos',
   TANGENT: 'tan',
-  LOGARITHM: 'lg',
-  LOGARITHM_NAME: 'log',
+  LOGARITHM: 'log',
   NATURAL_LOGARITHM: 'ln',
   LEFT_PARENTHESES: '(',
   RIGHT_PARENTHESES: ')',
@@ -51,7 +50,7 @@ export const LabelsEnum = Object.freeze({
   PI_NAME: 'pi'
 })
 
-export const UnaryOperatorKeys = Object.freeze({
+export const FunctionKeys = Object.freeze({
   SINE: 'x',
   COSINE: 'y',
   TANGENT: 'z',
